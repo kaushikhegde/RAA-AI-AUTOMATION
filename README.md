@@ -7,10 +7,35 @@ capability map, personas, challenges and system architecture.
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
+npm run dev      # http://localhost:5173 — Vite dev server
 npm run build    # static bundle into dist/
-npm run preview  # serve the built bundle
+npm run preview  # Vite's preview server
+npm start        # production server (server.js), serves dist/ on $PORT or 8080
 ```
+
+## Deployment — Azure App Service (Linux, Node)
+
+The app is a static Vite build, but App Service expects a Node process listening on `$PORT`.
+`server.js` is that process: a zero-dependency static server for `dist/` with SPA fallback,
+gzip, long-lived caching on fingerprinted assets, and a `/healthz` endpoint. Because it has no
+npm dependencies, nothing needs installing on the server.
+
+`.github/workflows/main_raaaiautomation.yml` builds on the runner and deploys **only**
+`dist/`, `server.js` and `package.json` (~980 KB). It does not ship `node_modules`, `src/`, or
+the source PDFs and DOCX that live in this repo.
+
+App Service settings to match:
+
+| Setting | Value |
+|---|---|
+| Runtime stack | Node 22 LTS (must match `node-version` in the workflow) |
+| Startup command | leave blank — App Service runs `npm start` |
+| `SCM_DO_BUILD_DURING_DEPLOYMENT` | `false` — the build already happened on the runner |
+| Health check path | `/healthz` (optional) |
+
+Routing is hash-based (`#process/pay-bpay`), so no rewrite rules are needed; `server.js` falls
+back to `index.html` for any extensionless path anyway. A request for a missing file under
+`/assets/` returns 404 rather than falling back to HTML, so a broken asset fails loudly.
 
 ## Sign in
 
@@ -60,6 +85,7 @@ src/
     Challenges.jsx    Filterable challenge register + cross-cutting theme summary
   App.jsx             Header, tab navigation, hash routing
   styles.css          RAA brand tokens and all component styling
+server.js             Production static server for Azure App Service (no dependencies)
 ```
 
 The `status` field and `STATUS` export remain in `capabilities.js` unused, so per-capability
