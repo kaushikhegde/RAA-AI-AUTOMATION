@@ -14,6 +14,8 @@ const SRC = {
   BP: 'booking proccess.pdf — AS-IS process pack v0.3',
   BLUE: 'proccess challenge.pdf — current-state service blueprint',
   TX: 'Tramada demo.docx — SME transcript',
+  W1: 'meeting2.docx — Discovery Workshop, 23 Jul 2026',
+  W2: 'meeting1.docx — Workshop 2, 30 Jul 2026',
 }
 
 export const challenges = [
@@ -314,6 +316,149 @@ export const challenges = [
     evidence: '"Currently no API integrations." RAA is separately creating a POC to automate travel segment creation.',
     source: SRC.BLUE,
     caps: ['5.2.2', '5.2.5'],
+  },
+
+  // ── Nadia · Accounts — back-office reconciliation (from the workshops) ──
+  {
+    id: 'C36', persona: 'accounts', theme: 'T2', severity: 'Critical',
+    title: 'Reconciliation is thousands of manual ticks across dozens of pages',
+    detail:
+      'Every transaction is clicked off by hand against a statement. Tokio Marine alone covers 900–1,100 policies across 45–55 pages — roughly two hours of clicking, spread over two three-hour sessions.',
+    evidence: '"Someone has to sit there and go click, click, click, click, click 1000 times to check off the numbers in Tramada." / "It can send them a bit batty, staring at a screen with the spreadsheet on one side and the Tramada on the other."',
+    source: `${SRC.W1} · ${SRC.W2}`,
+    caps: ['3.5.8', '3.5.9', '3.5.13'],
+  },
+  {
+    id: 'C37', persona: 'accounts', theme: 'T3', severity: 'Critical',
+    title: 'Reconciliation is months behind, not days',
+    detail:
+      'The manual effort means the team never catches up. Five months of FY25 statements from the previous card provider remain unreconciled.',
+    evidence: '"On our old credit card system that was done by a company called Air Plus, we\'ve still got five months worth of statements to reconcile back from financial year 25."',
+    source: SRC.W2,
+    caps: ['3.5.8', '3.5.10'],
+  },
+  {
+    id: 'C38', persona: 'accounts', theme: 'T2', severity: 'High',
+    title: 'Cash reconciliation spans three systems and a manual bank transfer',
+    detail:
+      'Cash is receipted by Retail through ECR into RAA\'s main account, entered separately in Tramada, invoiced in Finance One, then travel accounts physically move funds from the main account to the trust account before it can be reconciled.',
+    evidence: '"There\'s about 12 different steps to this." Cash routes through Retail because a separate pickup would add roughly $150,000 a year in cash-collection fees.',
+    source: SRC.W2,
+    caps: ['3.5.11', '3.5.12', '5.1.11'],
+  },
+  {
+    id: 'C39', persona: 'accounts', theme: 'T4', severity: 'High',
+    title: 'Reconciliation sessions are unreliable and silently lost',
+    detail:
+      'A saved session does not hold its transactions — opening a new session either re-selects or deletes them. Sessions are also wiped by Tramada platform updates, which arrive two or three at a time.',
+    evidence: '"You\'ll open a new session and it\'ll show those transactions already selected from the previous session, or it\'ll delete them altogether." / "When Tramada do an update, we sometimes lose the sessions altogether."',
+    source: SRC.W2,
+    caps: ['3.5.13'],
+  },
+  {
+    id: 'C40', persona: 'accounts', theme: 'T4', severity: 'High',
+    title: 'One bank line rarely maps to one Tramada costing',
+    detail:
+      'A single statement amount may cover several costings, or several lines may make up one Tramada entry. Credit-card surcharges apply to some transactions in a batch and not others, so every difference is reasoned out by hand.',
+    evidence: '"They might have 5 transactions. Of those, three might have a 3% fee added, but the other two don\'t… we\'ve got to try and decipher a lot of this information and work out what it\'s made of."',
+    source: SRC.W2,
+    caps: ['3.5.14', '3.5.15'],
+  },
+  {
+    id: 'C41', persona: 'accounts', theme: 'T4', severity: 'Medium',
+    title: 'BPay receipts often land unallocated',
+    detail:
+      'Where the amount does not clearly match a segment, the payment is receipted against the booking but left unallocated for the consultant to place later — which they may not do.',
+    evidence: '"If it\'s not matching, what they will do is just receipt it as an unallocated receipt. So it\'s in the booking, it\'s just not allocated to any segments."',
+    source: SRC.W1,
+    caps: ['3.2.5', '3.5.6'],
+  },
+  {
+    id: 'C42', persona: 'accounts', theme: 'T2', severity: 'Medium',
+    title: 'Suppliers trade under different names in every system',
+    detail:
+      'Creditor names differ between Tramada, MINT and the supplier statement — Web Source is Stuba; Circuit Travel covers Cosmos, Globus and Avalon — so matching relies on institutional memory.',
+    evidence: '"Web source specific is actually Stuba… some of them are actually quite confusing."',
+    source: SRC.W2,
+    caps: ['2.4.1', '3.5.14'],
+  },
+
+  // ── Heath · Travel Finance & Commercial ────────────────────────────────
+  {
+    id: 'C43', persona: 'finance', theme: 'T7', severity: 'Critical',
+    title: 'Volume tripled since COVID on unchanged finance headcount',
+    detail:
+      'Sales, agents and transactions have all roughly tripled while travel accounts staffing has not moved — so three times the errors are fixed by the same team, and the backlog compounds.',
+    evidence: '"We\'ve basically tripled our sales… tripled our agents… but we\'ve got the same amount of travel account staff as before COVID. Three times bigger comes with three times more errors… it\'s just a vicious circle."',
+    source: SRC.W1,
+    caps: ['5.3.5', '3.5.8'],
+  },
+  {
+    id: 'C44', persona: 'finance', theme: 'T2', severity: 'Critical',
+    title: 'EFTPOS terminals are not connected to Tramada',
+    detail:
+      'The in-store terminal amount and the Tramada receipt are keyed independently, so they disagree — or the transaction never reaches Tramada at all. Named as one of the two largest sources of receipting discrepancy.',
+    evidence: '"The transaction\'s been put through the terminal in store… but the actual transaction hasn\'t been entered into Tramada." Integration was in the Tramada contract six years ago as "will endeavour to" and was never delivered.',
+    source: SRC.W2,
+    caps: ['5.1.12', '5.2.6', '3.1.2'],
+  },
+  {
+    id: 'C45', persona: 'finance', theme: 'T2', severity: 'Critical',
+    title: 'Payment errors cost real money, not just time',
+    detail:
+      'Wrong suppliers get paid, digits get transposed and decimal points dropped. RAA formally tracks debits (pending supplier refunds) and write-offs (money lost outright).',
+    evidence: '"We\'ve had very large payments made because they\'ve used the supplier number as the payment amount." / "A $7,000 payment becomes a $700,000 payment, which we\'ve seen." / "We\'ve had another payment this morning where they\'ve paid the wrong supplier."',
+    source: `${SRC.W1} · ${SRC.W2}`,
+    caps: ['3.3.9', '3.3.10'],
+  },
+  {
+    id: 'C46', persona: 'finance', theme: 'T5', severity: 'High',
+    title: 'Virtual card issuance carries live financial risk',
+    detail:
+      'Cards are issued one per supplier payment with a validity window that can run to two years for a hotel charging at check-in. Unused credit sits exposed to fraud and locks up available limit; cards over $20,000 need a second approver.',
+    evidence: '"It\'s credit sitting on that card. From a risk point of view, it\'s better to have more cards but with less dollar value sitting on a card." / "If the cumulative amount is over $20,000, they need approval by someone else."',
+    source: SRC.W1,
+    caps: ['4.2.4', '3.3.2'],
+  },
+  {
+    id: 'C47', persona: 'finance', theme: 'T3', severity: 'High',
+    title: 'International EFT gives no proof the supplier was paid',
+    detail:
+      'Once funds leave the account there is no confirmation of receipt at the other end. A hotel recently claimed non-payment on the morning of check-in — RAA is defaulting these to virtual card so chargeback rights exist.',
+    evidence: '"We can go to the bank and they can confirm it\'s left our account, but we have no way of confirming that it\'s actually reached the other end."',
+    source: SRC.W2,
+    caps: ['3.3.11', '4.2.6'],
+  },
+  {
+    id: 'C48', persona: 'finance', theme: 'T5', severity: 'High',
+    title: 'Tramada has no role-based access',
+    detail:
+      'Any automation given access to Tramada inherits access to everything in it, including client PII. RAA is explicit that agents must not be able to move money or browse member bookings.',
+    evidence: '"Tramada doesn\'t have sort of role-based access… if an agent does have complete access to Tramada, is there a risk there from a cyber perspective?" / "Being able to spend money and being able to see members\' bookings, we have to avoid those two things."',
+    source: SRC.W2,
+    caps: ['4.3.4', '4.2.7'],
+  },
+
+  // ── Tom · Product / Travel Support ─────────────────────────────────────
+  {
+    id: 'C49', persona: 'support', theme: 'T4', severity: 'High',
+    title: 'Supplier and creditor are different things, and get conflated',
+    detail:
+      'Tramada holds both a supplier and a creditor against a segment — booking the Hilton through Room Res makes Hilton the supplier and Room Res the creditor. Payments go to the creditor, but everyday language calls the wholesaler the supplier, so the fields get filled inconsistently.',
+    evidence: '"The supplier is the hotel, and the creditor is Room Res, is how it\'s set up in Tramada… from a general layman\'s travel perspective, we say supplier is generally referred to as the wholesaler."',
+    source: SRC.W2,
+    caps: ['2.4.6', '3.3.6'],
+  },
+
+  // ── Sarah · Travel Consultant ──────────────────────────────────────────
+  {
+    id: 'C50', persona: 'consultant', theme: 'T2', severity: 'High',
+    title: 'Shortcuts that save the agent seconds cost finance hours',
+    detail:
+      'Under pressure to sell, consultants skip steps intending to return to them and rarely do. The saving is measured in seconds at the front and the cost in hours at the back.',
+    evidence: '"It might save them 20 seconds here and a minute here… what they\'re not understanding is the flow-on effect it has on the travel accounts team." / "Make it easy to do the right thing and hard to do the wrong thing."',
+    source: SRC.W1,
+    caps: ['4.4.1', '5.4.2'],
   },
 ]
 

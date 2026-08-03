@@ -62,16 +62,18 @@ is case-insensitive. The demo credentials are also printed under the form — de
 | `booking proccess.pdf` | 15 AS-IS process diagrams (v0.3, 23-Feb-2026) — Create Travel Booking, Search/Add Client, Issue Client Itinerary, Search/Add Hotels, Accept Client Payment, Pay Suppliers, Debtor Payment Receipt, Agency CC Debtor Receipt, Creditor Payment, Debtor Invoice, and four client-payment-method sub-flows |
 | `proccess challenge.pdf` | Current-state service blueprint — front stage / backstage, systems, friction points, risks and RAA's stated automation priorities |
 | `Tramada demo.docx` | Recorded SME session with Megan Gray (Training & Development Consultant, RAA Travel) |
+| `meeting2.docx` | Tramada Finance AI **Discovery Workshop**, 23 Jul 2026 (2h 44m) — client payment demo, virtual card issuance, supplier payment rails |
+| `meeting1.docx` | Tramada Finance AI **Workshop 2**, 30 Jul 2026 (3h 18m) — travel accounts back office, reconciliation walkthrough, baseline metrics |
 
 ## Structure
 
 ```
 src/
   data/
-    capabilities.js   5 domains · 23 groups · 128 capabilities, each with its systems and notes
-    personas.js       5 personas with Today/Tomorrow framing and 9-stage journeys
-    challenges.js     35 challenges with evidence, source, theme, severity and capability links
-    processes.js      14 AS-IS process flows · 241 steps · 252 transitions, as a grid model
+    capabilities.js   5 domains · 24 groups · 169 capabilities, each with its systems and notes
+    personas.js       6 personas with Today/Tomorrow framing and 9-stage journeys
+    challenges.js     50 challenges with evidence, source, theme, severity and capability links
+    processes.js      20 process flows (14 front office + 6 back office) · 316 steps, as a grid model
     architecture.js   NOT RENDERED — retained analysis from the removed Architecture tab
   assets/
     sarah-journey.jpeg  Journey map slide shown on Sarah's Journeys tab
@@ -114,6 +116,16 @@ an amber dot have an annotation from the source diagram — click for the detail
 
 Because the flows are wide (BP001 runs 19 columns), the canvas opens at a fixed readable zoom and
 pans, rather than using `fitView` which would shrink them to an illegible strip.
+
+Processes 01–14 come from the AS-IS pack and are consultant-facing. Processes 15–20 come from the
+July 2026 workshops and cover the travel accounts back office — daily bank statement, DVC, MINT,
+Tokio Marine, ETG and cash reconciliation.
+
+### Open conflict to resolve
+
+The **Pay Suppliers** flow places virtual card generation in **Amadeus**, per the AS-IS pack. Both
+July 2026 workshops demonstrated it live in the **Westpac** portal. One source is out of date; the
+diagram carries a warning annotation until it is confirmed with Megan Gray or Heath Littlefield.
 
 ## Branding
 

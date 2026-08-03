@@ -29,7 +29,7 @@ export const personas = [
       'Documents and acceptance attached to the booking record',
     ],
     keyBenefit: 'More time selling travel, far less time re-keying it',
-    challengeIds: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C11', 'C12', 'C13'],
+    challengeIds: ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9', 'C10', 'C11', 'C12', 'C13', 'C50'],
     // Presentation-ready rendering of this journey, shown beneath the interactive diagram.
     journeyImage: sarahJourneyImage,
     journeyImageCaption: 'Sarah\'s Journey — Travel Consultant Today vs Tomorrow',
@@ -90,23 +90,26 @@ export const personas = [
     emoji: '📊',
     accent: '#15909C',
     context:
-      'Reconciles BPay and direct deposits against the RAA bank account each morning, receipts them in Tramada, and notifies the consultant team.',
+      'The compensating control for the whole front office. Reconciles every inbound and outbound stream against the bank — BPay, DVC, MINT, TravelPay, ETG, Tokio Marine, cash, card settlements and refunds — and creates receipts on consultants\' behalf when they were never entered.',
     goalStatement:
       'Match every dollar to a booking the same day, without hunting for missing references.',
     today: [
-      '30–60 minutes each morning on a Westpac download and spreadsheet',
-      'Strips an extra digit off every reference to find the booking',
-      'References missing entirely on many receipts',
-      'Emails every consultant when a payment is receipted',
+      'Ticks off thousands of transactions by hand — Tokio Marine alone runs 45–55 pages',
+      'Downloads a Westpac CSV each morning and matches it in a spreadsheet',
+      'Reconciles across two acquirers, Finance One and a separate trust account',
+      'Enters the receipts consultants forgot, then chases the ones she can\'t place',
     ],
     tomorrow: [
-      'Automated bank feed with rules-based matching',
+      'Statement-first automation enters the transactions, then reconciles them',
       'Reference format validated and normalised at source',
-      'Reference mandatory — receipts cannot save without one',
-      'Notification routed to the owning booking and consultant',
+      'She reviews an exception list instead of clicking every line',
+      'Backlog cleared and bank statements closed within the month',
     ],
     keyBenefit: 'Same-day matching with a clean audit trail on every dollar',
-    challengeIds: ['C20', 'C21', 'C22', 'C23', 'C24', 'C25'],
+    challengeIds: [
+      'C20', 'C21', 'C22', 'C23', 'C24', 'C25',
+      'C36', 'C37', 'C38', 'C39', 'C40', 'C41', 'C42',
+    ],
     journey: [
       { stage: 'Enquiry', today: 'Not involved', tomorrow: 'Not involved', emotion: '😐', mood: 'N/A' },
       { stage: 'Client Setup', today: 'Not involved', tomorrow: 'Not involved', emotion: '😐', mood: 'N/A' },
@@ -117,6 +120,43 @@ export const personas = [
       { stage: 'Receipting', today: 'Manual receipt creation per payment', tomorrow: 'Auto-receipt on matched settlement', emotion: '😣', mood: 'Bogged down' },
       { stage: 'Reconciliation', today: 'Westpac download into a spreadsheet, digit-stripping', tomorrow: 'Bank feed auto-match with exception queue', emotion: '😫', mood: 'Exhausted' },
       { stage: 'Invoice & Close', today: 'Three ledgers reconciled by hand', tomorrow: 'Ledgers reconciled continuously', emotion: '😩', mood: 'Worn out' },
+    ],
+  },
+
+  {
+    id: 'finance',
+    name: 'Heath Littlefield',
+    role: 'Travel Finance & Commercial',
+    emoji: '🏦',
+    accent: '#9F2241',
+    context:
+      'Owns the Westpac banking relationship, the virtual-card risk model and the supplier commercial agreements. Tracks the debits and write-offs that front-office keying errors create, and is accountable for finance scaling more slowly than the business.',
+    goalStatement:
+      'Grow the business 30–40% while growing finance effort 5–10% — and stop paying for avoidable errors.',
+    today: [
+      'Transaction volume tripled since COVID on unchanged travel accounts headcount',
+      'Five months of FY25 card statements still unreconciled',
+      '10–20% of daily DVC transactions need manual fixing',
+      'Absorbs write-offs and debits from wrong suppliers and mis-keyed amounts',
+    ],
+    tomorrow: [
+      'Statement-first automation: enter from the statement, then reconcile',
+      'Mandatory references make the common errors impossible',
+      'Exceptions routed to the agent and store that caused them',
+      'Backlog cleared and reconciliation kept current',
+    ],
+    keyBenefit: 'Scale the business without scaling the error rate or the headcount',
+    challengeIds: ['C43', 'C44', 'C45', 'C46', 'C47', 'C48'],
+    journey: [
+      { stage: 'Enquiry', today: 'Not involved', tomorrow: 'Not involved', emotion: '😐', mood: 'N/A' },
+      { stage: 'Client Setup', today: 'Not involved', tomorrow: 'Not involved', emotion: '😐', mood: 'N/A' },
+      { stage: 'Sourcing', today: 'Sets the supplier panel and payment terms', tomorrow: 'Terms drive the payment rail automatically', emotion: '🙂', mood: 'In control' },
+      { stage: 'Segments & Costing', today: 'Costing errors surface weeks later', tomorrow: 'Validated at entry', emotion: '😕', mood: 'Wary' },
+      { stage: 'Quote & Acceptance', today: 'No financial visibility', tomorrow: 'Exposure visible early', emotion: '😶', mood: 'Blind' },
+      { stage: 'Client Payment', today: 'Funds must clear before anything moves', tomorrow: 'Faster settlement recognition', emotion: '😐', mood: 'Waiting' },
+      { stage: 'Receipting', today: 'Terminal and Tramada amounts disagree', tomorrow: 'Terminal pre-populated from Tramada', emotion: '😠', mood: 'Exposed' },
+      { stage: 'Supplier Payment', today: 'Card risk, validity windows, wrong suppliers paid', tomorrow: 'API-issued cards with controls built in', emotion: '😤', mood: 'Guarded' },
+      { stage: 'Reconciliation', today: 'Months behind, errors compounding', tomorrow: 'Closed within the month', emotion: '😫', mood: 'Under pressure' },
     ],
   },
 
@@ -180,7 +220,11 @@ export const personas = [
       'Master data refreshed by integration, not retyping',
     ],
     keyBenefit: 'Clean supplier data upstream, correct financials downstream',
-    challengeIds: ['C31', 'C32', 'C33', 'C34', 'C35'],
+    // Evidenced only by the AS-IS process pack. Neither discovery workshop raised this role or
+    // its pain points, so treat it as lower confidence than the other five personas.
+    evidenceNote:
+      'Drawn from the AS-IS process pack only — not raised in either discovery workshop. Lower confidence than the other personas.',
+    challengeIds: ['C31', 'C32', 'C33', 'C34', 'C35', 'C49'],
     journey: [
       { stage: 'Enquiry', today: 'Not involved', tomorrow: 'Not involved', emotion: '😐', mood: 'N/A' },
       { stage: 'Client Setup', today: 'Not involved', tomorrow: 'Not involved', emotion: '😐', mood: 'N/A' },

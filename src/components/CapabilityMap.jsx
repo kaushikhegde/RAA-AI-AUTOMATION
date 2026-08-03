@@ -49,9 +49,10 @@ export default function CapabilityMap() {
         <div className="eyebrow">Business capability map</div>
         <h2>What RAA Travel does, and where the effort goes.</h2>
         <p>
-          {allCaps.length} capabilities across five domains, derived from the AS-IS process pack, the
-          current-state service blueprint and the SME session. Select any capability to see the systems
-          it runs on, the personas it affects and the challenges recorded against it.
+          {allCaps.length} capabilities across {domains.length} domains, derived from the AS-IS process
+          pack, the current-state service blueprint, the SME session and the two Tramada Finance AI
+          workshops of July 2026. Select any capability to see the systems it runs on, the personas it
+          affects and the challenges recorded against it.
         </p>
       </div>
 

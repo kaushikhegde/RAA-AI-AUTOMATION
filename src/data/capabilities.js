@@ -124,6 +124,14 @@ export const domains = [
           { id: '2.4.3', name: 'New Supplier Creation & Notification', status: 'H1', systems: ['Tramada', 'Email'], note: 'Product/Travel Support add the supplier and notify back.' },
           { id: '2.4.4', name: 'Creditor Account Setup', status: 'H2', systems: ['Tramada'], note: 'Account details populated for the new creditor.' },
           { id: '2.4.5', name: 'Supplier Portal Credential Management', status: 'H1', systems: ['LastPass'], note: 'Every creditor/supplier portal has its own login.' },
+          {
+            id: '2.4.6', name: 'Supplier vs Creditor Assignment', status: 'H1', systems: ['Tramada'],
+            note: 'Tramada holds both. The hotel is the supplier; the wholesaler paid (Room Res, Stuba, Viva) is the creditor. Everyday language calls the wholesaler the supplier, so the fields are filled inconsistently.',
+          },
+          {
+            id: '2.4.7', name: 'Creditor Trading-Name Mapping', status: 'H1', systems: ['Tramada', 'MINT'],
+            note: 'Names differ per system — Web Source is Stuba; Circuit Travel covers Cosmos, Globus and Avalon. Held as institutional memory.',
+          },
         ],
       },
       {
@@ -158,7 +166,11 @@ export const domains = [
           { id: '3.1.6', name: 'Direct Deposit / EFT', status: 'H1', systems: ['Westpac'], note: 'Up to 7 working days. BPay is replacing it.' },
           { id: '3.1.7', name: 'Multi-Method Split Payment', status: 'H1', systems: ['Tramada'], note: 'Loop in the AS-IS flow: ">=1 Client Payment?"' },
           { id: '3.1.8', name: 'Deposit vs Full Payment', status: 'H1', systems: ['Tramada'], note: 'Supplier conditions decide whether a hold-with-deposit is allowed.' },
-          { id: '3.1.9', name: 'Instalment Payment', status: 'H2', systems: [], note: 'Explicitly "To Do" in the AS-IS pack — flow only caters for full payment.' },
+          { id: '3.1.9', name: 'Instalment Payment', status: 'H2', systems: [], note: 'Marked "To Do" in the AS-IS pack, but part payments and deposits are routine in practice — the pack understates this.' },
+          {
+            id: '3.1.10', name: 'On-Account Supplier Settlement', status: 'H2', systems: ['Tramada'],
+            note: 'For Tokio Marine, ETG and a few others the consultant takes the money and enters the costing; travel accounts make the payment.',
+          },
         ],
       },
       {
@@ -172,6 +184,14 @@ export const domains = [
           { id: '3.2.5', name: 'Receipt-to-Segment Allocation', status: 'H1', systems: ['Tramada'], note: 'Segments selected manually before the receipt is issued.' },
           { id: '3.2.6', name: 'Receipt Issue & Print', status: 'H1', systems: ['Tramada', 'ECR'], note: 'Booking status set to "Booked" on issue.' },
           { id: '3.2.7', name: 'Agency CC Debtor Receipt', status: 'H1', systems: ['Tramada'], note: 'Raised whenever a supplier was paid by VCC.' },
+          {
+            id: '3.2.8', name: 'Debtor vs Client Payment Receipt', status: 'H2', systems: ['Tramada'],
+            note: 'Corporate bookings with a split profile (e.g. sports teams and their families) take a client payment receipt, retail bookings a debtor payment receipt.',
+          },
+          {
+            id: '3.2.9', name: 'Finance Merchant Payment Receipt', status: 'H1', systems: ['Tramada'],
+            note: 'Raised against in-store card settlements, matched by shop reference.',
+          },
         ],
       },
       {
@@ -186,6 +206,22 @@ export const domains = [
           { id: '3.3.6', name: 'Creditor Payment Creation (EFT)', status: 'H1', systems: ['Tramada'], note: 'Raised in Tramada for all non-VCC supplier payments.' },
           { id: '3.3.7', name: 'Payment Reference Capture', status: 'H1', systems: ['Tramada'], note: 'MINT/TravelPay reference number added to the creditor payment.' },
           { id: '3.3.8', name: 'VCC Write-Off', status: 'H1', systems: ['Tramada'], note: 'Required to clear the VCC after the agency CC debtor receipt.' },
+          {
+            id: '3.3.9', name: 'Payment Error Detection & Correction', status: 'H1', systems: ['Tramada', 'Westpac'],
+            note: 'Wrong supplier paid, transposed digits, missing decimal points. Correction means chasing a refund and re-costing.',
+          },
+          {
+            id: '3.3.10', name: 'Debit & Write-Off Management', status: 'H1', systems: ['Finance One'],
+            note: 'Debits track money out pending supplier refund; write-offs track money lost outright. Both are formally reported.',
+          },
+          {
+            id: '3.3.11', name: 'International EFT Payment', status: 'H2', systems: ['Westpac'],
+            note: 'Needs beneficiary name, address, bank and branch. No confirmation of receipt at the far end — being defaulted to virtual card for chargeback cover.',
+          },
+          {
+            id: '3.3.12', name: 'Post-Travel Commission Recovery', status: 'H2', systems: ['Tramada'],
+            note: 'Gross virtual-card payments mean RAA pays the full amount and is repaid commission after the client travels.',
+          },
         ],
       },
       {
@@ -209,6 +245,50 @@ export const domains = [
           { id: '3.5.5', name: 'Reference Number Normalisation', status: 'H1', systems: ['Excel'], note: 'Reference carries an extra digit that must be stripped.' },
           { id: '3.5.6', name: 'Outstanding Balance Tracking', status: 'H1', systems: ['Tramada'], note: 'Client views the outstanding amount on the quote document.' },
           { id: '3.5.7', name: 'Debtor & Creditor Ledger Maintenance', status: 'H1', systems: ['Tramada'], note: 'Three ledgers reconciled by hand against segments.' },
+          {
+            id: '3.5.8', name: 'Tramada Bank Statement Reconciliation', status: 'H1', systems: ['Tramada', 'Westpac'],
+            note: 'Daily statement in Tramada, ticked line by line. Must balance to the cent or the statement shows out of balance.',
+          },
+          {
+            id: '3.5.9', name: 'Supplier Statement Reconciliation', status: 'H1', systems: ['Tramada'],
+            note: 'Per-creditor: DVC daily (~107 transactions), MINT daily, Tokio Marine monthly (900–1,100 policies over 45–55 pages), Club Connect, TravelPay.',
+          },
+          {
+            id: '3.5.10', name: 'Reconciliation Backlog Management', status: 'H1', systems: ['Tramada'],
+            note: 'Five months of FY25 statements from the previous card provider remain unreconciled.',
+          },
+          {
+            id: '3.5.11', name: 'Cash Reconciliation via Finance One', status: 'H2', systems: ['Finance One', 'ECR', 'Tramada'],
+            note: 'Roughly twelve steps: retail sales report, Tramada deposit, Finance One invoice, then a manual bank transfer.',
+          },
+          {
+            id: '3.5.12', name: 'Main-to-Trust Account Transfer', status: 'H2', systems: ['Westpac'],
+            note: 'Cash lands in RAA\'s main account and must be moved to the travel trust account before it can be reconciled.',
+          },
+          {
+            id: '3.5.13', name: 'Reconciliation Session Management', status: 'H1', systems: ['Tramada'],
+            note: 'Sessions can be saved and labelled, but do not reliably hold their transactions and are lost when Tramada updates.',
+          },
+          {
+            id: '3.5.14', name: 'Many-to-One Transaction Matching', status: 'H1', systems: ['Tramada', 'Excel'],
+            note: 'One statement line may cover several costings, or several lines make up one Tramada entry.',
+          },
+          {
+            id: '3.5.15', name: 'Surcharge & Fee Variance Handling', status: 'H1', systems: ['Excel'],
+            note: 'Card surcharges apply to some transactions in a batch and not others; each difference is reasoned out by hand.',
+          },
+          {
+            id: '3.5.16', name: 'Ticket Reconciliation (Automated)', status: 'H2', systems: ['Tramada', 'ETG'],
+            note: 'ETG send a weekly CSV that Tramada ingests and error-checks. The only automated reconciliation in the estate — a working reference model.',
+          },
+          {
+            id: '3.5.17', name: 'Passenger Refund Reconciliation', status: 'H2', systems: ['Tramada'],
+            note: 'Refunds arrive in bulk and are matched off against a refund report.',
+          },
+          {
+            id: '3.5.18', name: 'Merchant Settlement Reconciliation', status: 'H1', systems: ['Westpac', 'Nuvei', 'IPSI'],
+            note: 'Two acquirers — Westpac for in-store terminals, Nuvei for IPSI phone payments, which settle a day later.',
+          },
         ],
       },
     ],
@@ -237,6 +317,18 @@ export const domains = [
           { id: '4.2.3', name: 'Funds-Before-Supply Control', status: 'H1', systems: [], note: 'RAA cannot issue policy or pay a supplier until the money lands.' },
           { id: '4.2.4', name: 'VCC Validity & Risk Sizing', status: 'H1', systems: ['Amadeus'], note: 'Validity up to 2 years; shorter windows for higher risk.' },
           { id: '4.2.5', name: 'Card Data Handling (PCI / CNP)', status: 'H1', systems: ['IPSI'], note: 'Card-not-present capture over the phone keypad.' },
+          {
+            id: '4.2.6', name: 'Chargeback & Supplier Recourse', status: 'H2', systems: ['Westpac'],
+            note: 'The reason virtual card beats EFT for irregular suppliers — funds can be clawed back if the service is not provided.',
+          },
+          {
+            id: '4.2.7', name: 'Automation Payment Guardrails', status: 'H1', systems: [],
+            note: 'RAA is explicit that automation must not be able to move money or browse member bookings unsupervised.',
+          },
+          {
+            id: '4.2.8', name: 'High-Value Card Approval', status: 'H2', systems: ['Westpac'],
+            note: 'Virtual cards over a $20,000 cumulative limit require a second approver before the card is valid.',
+          },
         ],
       },
       {
@@ -245,7 +337,15 @@ export const domains = [
         caps: [
           { id: '4.3.1', name: 'Shared Credential Vaulting', status: 'H1', systems: ['LastPass'], note: 'Common logons and dummy card details for shared portals.' },
           { id: '4.3.2', name: 'Per-Portal Login Management', status: 'H1', systems: ['Supplier portals'], note: 'No single sign-on across creditors and suppliers.' },
-          { id: '4.3.3', name: 'Agent Initial & Store Code Stamping', status: 'H2', systems: ['Amadeus', 'MINT'], note: 'Attribution keyed into each payment request.' },
+          { id: '4.3.3', name: 'Agent Initial & Store Code Stamping', status: 'H2', systems: ['Amadeus', 'MINT'], note: 'Attribution keyed into each payment request. Also how reconciliation exceptions get routed back to the right agent and store.' },
+          {
+            id: '4.3.4', name: 'Role-Based Access Control', status: 'H1', systems: ['Tramada'],
+            note: 'Tramada has none. Any automation granted access inherits access to everything, including client PII.',
+          },
+          {
+            id: '4.3.5', name: 'Two-Factor Authentication', status: 'OOS', systems: ['Westpac'],
+            note: 'The virtual card portal prompts for 2FA on every login, because issuing a card issues funds.',
+          },
         ],
       },
       {
@@ -291,6 +391,40 @@ export const domains = [
           { id: '5.1.8', name: 'Compass — Policy & Templates', status: 'H2', systems: ['Compass'], note: 'Fee schedules, discount rules, EAT templates.' },
           { id: '5.1.9', name: 'Genesys — Telephony', status: 'OOS', systems: ['Genesys'], note: 'Voice channel used during card capture.' },
           { id: '5.1.10', name: 'Tour Atlas — Product Discovery', status: 'H2', systems: ['Tour Atlas'], note: 'Tour search by destination, style and date.' },
+          {
+            id: '5.1.11', name: 'Finance One — Corporate Finance', status: 'H2', systems: ['Finance One'],
+            note: 'RAA\'s back-of-house main finance system, separate from Tramada. Carries cash receipting, invoicing and payments.',
+          },
+          {
+            id: '5.1.12', name: 'Westpac EFTPOS Terminals', status: 'H1', systems: ['Westpac'],
+            note: 'In-store card capture. No connection to Tramada — amounts are keyed twice.',
+          },
+          {
+            id: '5.1.13', name: 'Westpac Virtual Card Portal', status: 'H1', systems: ['Westpac'],
+            note: 'Purchase requests, validity windows, cumulative limits and DBI data-collection fields. Has an API; production only, no sandbox.',
+          },
+          {
+            id: '5.1.14', name: 'Nuvei — Merchant Acquiring', status: 'H2', systems: ['Nuvei'],
+            note: 'Second acquirer alongside Westpac. IPSI phone payments settle through it, a day behind.',
+          },
+          {
+            id: '5.1.15', name: 'ETG — Ticketing', status: 'H2', systems: ['ETG'],
+            note: 'Express Travel Group. Weekly CSV feed into Tramada — the only supplier with automated reconciliation.',
+          },
+          {
+            id: '5.1.16', name: 'Prosegur — Cash In Transit', status: 'OOS', systems: ['Prosegur'],
+            note: 'Charged per bag collected, ~$150k a year. The reason cash routes through Retail rather than Travel.',
+          },
+        ],
+      },
+      {
+        id: '5.5',
+        name: 'Banking & Treasury',
+        caps: [
+          { id: '5.5.1', name: 'Travel Trust Account', status: 'H1', systems: ['Westpac'], note: 'Where travel money must sit before it can be reconciled in Tramada.' },
+          { id: '5.5.2', name: 'RAA Main Account', status: 'H2', systems: ['Westpac'], note: 'Receives retail-collected cash before it is transferred to trust.' },
+          { id: '5.5.3', name: 'Bank Reporting & CSV Extract', status: 'H1', systems: ['Westpac'], note: 'Daily manual download that begins every reconciliation.' },
+          { id: '5.5.4', name: 'Banking API Access', status: 'H1', systems: ['Westpac'], note: 'Available for virtual cards; production only, test cards can be cancelled after issue.' },
         ],
       },
       {
@@ -302,6 +436,18 @@ export const domains = [
           { id: '5.2.3', name: 'Bank Feed Ingestion', status: 'H1', systems: ['Westpac'], note: 'Manual daily download standing in for a feed.' },
           { id: '5.2.4', name: 'RPA / Smart Flow Execution', status: 'H1', systems: ['Amadeus'], note: 'VCC Smart Flow is the only automation in the payment path today.' },
           { id: '5.2.5', name: 'Travel Segment Auto-Creation', status: 'H1', systems: ['Tramada'], note: 'RAA is already building a POC for this.' },
+          {
+            id: '5.2.6', name: 'EFTPOS ↔ Tramada Integration', status: 'H1', systems: ['Westpac', 'Tramada'],
+            note: 'Written into the Tramada contract six years ago as "will endeavour to" and never delivered. Would pre-populate the terminal from the Tramada receipt.',
+          },
+          {
+            id: '5.2.7', name: 'Statement-First Transaction Entry', status: 'H1', systems: ['Tramada'],
+            note: 'Proposed inversion: let automation create the Tramada transactions from the next-day DVC/MINT statement, then reconcile immediately — removing the agent keying step entirely.',
+          },
+          {
+            id: '5.2.8', name: 'Exception Routing to Agent', status: 'H1', systems: ['Tramada'],
+            note: 'Unmatched lines carry agent initials and store code, so exceptions can be emailed to whoever created them.',
+          },
         ],
       },
       {
@@ -312,6 +458,18 @@ export const domains = [
           { id: '5.3.2', name: 'Systems Training', status: 'H2', systems: [], note: 'Tramada-heavy, plus Amadeus, Tokio Marine and the wholesaler estate.' },
           { id: '5.3.3', name: 'Agent Support & Escalation', status: 'H2', systems: [], note: 'Training team absorbs booking finance escalations.' },
           { id: '5.3.4', name: 'Knowledge Management', status: 'H2', systems: ['Compass'], note: 'Policies and rules held as intranet documents.' },
+          {
+            id: '5.3.5', name: 'Finance Capacity Management', status: 'H1', systems: [],
+            note: 'Transactions have roughly tripled since COVID on unchanged travel accounts headcount. The programme goal is to scale the business 30–40% while scaling effort 5–10%.',
+          },
+          {
+            id: '5.3.6', name: 'Speed to Competency', status: 'H2', systems: [],
+            note: 'Tracked as a measure: losing an experienced consultant and replacing them with a trainee costs real sales while they learn the admin.',
+          },
+          {
+            id: '5.3.7', name: 'Change Confidence & AI Trust', status: 'H2', systems: [],
+            note: 'Staff have been promised improvements for years. An AI trust pulse score is a proposed programme measure.',
+          },
         ],
       },
       {

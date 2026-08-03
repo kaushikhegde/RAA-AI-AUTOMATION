@@ -35,11 +35,12 @@ function Overview() {
     <>
       <div className="section-head">
         <div className="eyebrow">Who we serve</div>
-        <h2>Five people the travel booking process runs through.</h2>
+        <h2>{personas.length} people the travel booking process runs through.</h2>
         <p>
           Each persona stands for a category of actors with similar journeys, drawn from the swimlanes in
-          the AS-IS process pack, the current-state blueprint and the recorded SME session. Together they
-          account for all {challenges.length} recorded challenges.
+          the AS-IS process pack, the current-state blueprint, the recorded SME session and the two
+          Tramada Finance AI workshops of July 2026. Together they account for all {challenges.length}{' '}
+          recorded challenges.
         </p>
       </div>
 
@@ -81,19 +82,28 @@ function Overview() {
               <div className="benefit">{p.keyBenefit}</div>
               <div className="goal">&ldquo;{p.goalStatement}&rdquo;</div>
               <div style={{ marginTop: 10, fontSize: 11, color: 'var(--grey-500)', fontWeight: 700 }}>
-                {p.challengeIds.length} recorded challenges · {p.challengeIds[0]}–
-                {p.challengeIds[p.challengeIds.length - 1]}
+                {p.challengeIds.length} recorded challenges
               </div>
+              {p.evidenceNote && (
+                <div
+                  style={{
+                    marginTop: 8, fontSize: 11.5, lineHeight: 1.45, fontStyle: 'italic',
+                    color: 'var(--grey-500)', borderTop: '1px solid var(--grey-200)', paddingTop: 8,
+                  }}
+                >
+                  {p.evidenceNote}
+                </div>
+              )}
             </div>
           </article>
         ))}
       </div>
 
       <div className="callout">
-        These five personas cover every lane in the AS-IS pack. Two further actors appear in the process
-        but are not modelled as full personas: the <strong>Retail team member</strong> operating the ECR for
-        cash and cheque receipting, and the <strong>Travel Operations Manager</strong> as the transformation
-        sponsor.
+        These personas cover every lane in the AS-IS pack plus the back-office roles surfaced in the July
+        2026 workshops. Two actors are still not modelled in full: the <strong>Retail team member</strong>{' '}
+        who receipts cash through the ECR, and the <strong>corporate / debtor client</strong> — sports
+        teams and similar — whose split-profile bookings receipt and invoice differently to retail.
       </div>
     </>
   )

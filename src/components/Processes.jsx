@@ -19,11 +19,12 @@ export default function Processes({ activeId, onSelect }) {
     <div className="page">
       <div className="section-head">
         <div className="eyebrow">Process flows</div>
-        <h2>Every AS-IS process, exactly as documented.</h2>
+        <h2>Every current-state process, exactly as documented.</h2>
         <p>
-          {processes.length} processes transcribed from the AS-IS pack (v0.3, 23-Feb-2026), annotated with
-          friction points from the current-state blueprint and the SME session. Steps sit in the swimlane of
-          the actor or system that performs them. Click a step for its detail; click a sub-process to open it.
+          {processes.length} processes — 14 consultant-facing flows transcribed from the AS-IS pack
+          (v0.3, 23-Feb-2026), plus 6 back-office reconciliation flows walked through in the July 2026
+          workshops. Steps sit in the swimlane of the actor or system that performs them. Click a step for
+          its detail; click a sub-process to open it.
         </p>
       </div>
 
