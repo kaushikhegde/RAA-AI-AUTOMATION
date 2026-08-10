@@ -25,7 +25,7 @@ export const domains = [
         id: '1.1',
         name: 'Client Management',
         caps: [
-          { id: '1.1.1', name: 'Client Search', status: 'H2', systems: ['Tramada', 'Landscape'], note: 'Consultant searches Tramada, then Landscape if no match.' },
+          { id: '1.1.1', name: 'Client Search', status: 'H2', systems: ['Tramada', 'Landscape'], note: 'Consultant searches Tramada and Landscape thoroughly for matching client details.' },
           { id: '1.1.2', name: 'Client Profile Creation', status: 'H2', systems: ['Tramada'], note: 'Manual population of personal details when no profile exists.' },
           { id: '1.1.3', name: 'Client Detail Validation', status: 'OOS', systems: ['Tramada'], note: '3-point ID check performed verbally by consultant.' },
           { id: '1.1.4', name: 'Landscape Detail Retrieval & Copy', status: 'H1', systems: ['Landscape', 'Tramada'], note: 'Email, phone and member # copied across manually if available.' },
@@ -84,7 +84,7 @@ export const domains = [
           { id: '2.1.2', name: 'Booking Search & View', status: 'H2', systems: ['Tramada'], note: 'Existing booking retrieved before modification (BP002).' },
           { id: '2.1.3', name: 'Booking Status Management', status: 'H1', systems: ['Tramada'], note: 'New → Quote → Booked, driven manually at three separate points.' },
           { id: '2.1.4', name: 'Booking Modification', status: 'H2', systems: ['Tramada'], note: 'Separate AS-IS process BP002.' },
-          { id: '2.1.5', name: 'Booking Notes Management', status: 'H1', systems: ['Tramada'], note: 'IPSI details, VCC/MINT details and acceptance all live here.' },
+          { id: '2.1.5', name: 'Booking Notes Management', status: 'H1', systems: ['Tramada'], note: 'IPSI details, DVC/MINT details and acceptance all live here.' },
         ],
       },
       {
@@ -183,7 +183,7 @@ export const domains = [
           { id: '3.2.4', name: 'ECR Receipt & Branch Code Capture', status: 'H2', systems: ['ECR', 'Tramada'], note: 'Recorded against the receipt for cash payments.' },
           { id: '3.2.5', name: 'Receipt-to-Segment Allocation', status: 'H1', systems: ['Tramada'], note: 'Segments selected manually before the receipt is issued.' },
           { id: '3.2.6', name: 'Receipt Issue & Print', status: 'H1', systems: ['Tramada', 'ECR'], note: 'Booking status set to "Booked" on issue.' },
-          { id: '3.2.7', name: 'Agency CC Debtor Receipt', status: 'H1', systems: ['Tramada'], note: 'Raised whenever a supplier was paid by VCC.' },
+          { id: '3.2.7', name: 'Agency CC Debtor Receipt', status: 'H1', systems: ['Tramada'], note: 'Raised whenever a supplier was paid by DVC.' },
           {
             id: '3.2.8', name: 'Debtor vs Client Payment Receipt', status: 'H2', systems: ['Tramada'],
             note: 'Corporate bookings with a split profile (e.g. sports teams and their families) take a client payment receipt, retail bookings a debtor payment receipt.',
@@ -198,14 +198,14 @@ export const domains = [
         id: '3.3',
         name: 'Supplier Payment',
         caps: [
-          { id: '3.3.1', name: 'Supplier Payment Method Determination', status: 'H1', systems: ['Tramada'], note: 'VCC vs MINT/TravelPay — decided per supplier.' },
-          { id: '3.3.2', name: 'Virtual Credit Card Generation', status: 'H1', systems: ['Amadeus'], note: 'VCC Generator Smart Flow; 6 fields populated by hand.' },
-          { id: '3.3.3', name: 'VCC Population into Supplier Portal', status: 'H1', systems: ['Supplier portals'], note: 'Card number and expiry copied across, then payment submitted.' },
+          { id: '3.3.1', name: 'Supplier Payment Method Determination', status: 'H1', systems: ['Tramada'], note: 'DVC vs MINT/TravelPay — decided per supplier.' },
+          { id: '3.3.2', name: 'Virtual Credit Card Generation', status: 'H1', systems: ['Amadeus'], note: 'DVC Generator Smart Flow; 6 fields populated by hand.' },
+          { id: '3.3.3', name: 'DVC Population into Supplier Portal', status: 'H1', systems: ['Supplier portals'], note: 'Card number and expiry copied across, then payment submitted.' },
           { id: '3.3.4', name: 'MINT Payment Creation', status: 'H1', systems: ['MINT'], note: 'Booking #, agent ref, lead passenger, amount, date, payee — all re-keyed.' },
           { id: '3.3.5', name: 'TravelPay Payment', status: 'H1', systems: ['TravelPay'], note: 'Follows the MINT flow.' },
-          { id: '3.3.6', name: 'Creditor Payment Creation (EFT)', status: 'H1', systems: ['Tramada'], note: 'Raised in Tramada for all non-VCC supplier payments.' },
+          { id: '3.3.6', name: 'Creditor Payment Creation (EFT)', status: 'H1', systems: ['Tramada'], note: 'Raised in Tramada for all non-DVC supplier payments.' },
           { id: '3.3.7', name: 'Payment Reference Capture', status: 'H1', systems: ['Tramada'], note: 'MINT/TravelPay reference number added to the creditor payment.' },
-          { id: '3.3.8', name: 'VCC Write-Off', status: 'H1', systems: ['Tramada'], note: 'Required to clear the VCC after the agency CC debtor receipt.' },
+          { id: '3.3.8', name: 'DVC Write-Off', status: 'H1', systems: ['Tramada'], note: 'Required to clear the DVC after the agency CC debtor receipt.' },
           {
             id: '3.3.9', name: 'Payment Error Detection & Correction', status: 'H1', systems: ['Tramada', 'Westpac'],
             note: 'Wrong supplier paid, transposed digits, missing decimal points. Correction means chasing a refund and re-costing.',
@@ -240,7 +240,7 @@ export const domains = [
         caps: [
           { id: '3.5.1', name: 'BPay Bank Reconciliation', status: 'H1', systems: ['Westpac', 'Tramada'], note: 'Accounts match bank movements against bookings.' },
           { id: '3.5.2', name: 'Direct Deposit Reconciliation', status: 'H1', systems: ['Westpac', 'Tramada'], note: 'Up to 7 working days end-to-end.' },
-          { id: '3.5.3', name: 'Bank Report Download & Match', status: 'H1', systems: ['Westpac', 'Excel'], note: '30–60 minutes every morning into a spreadsheet.' },
+          { id: '3.5.3', name: 'Bank Report Download & Match', status: 'H1', systems: ['Westpac', 'Excel'], note: '30 minutes to well over an hour every morning into a spreadsheet, depending on volume.' },
           { id: '3.5.4', name: 'Payment Evidence Handling', status: 'H1', systems: ['Email'], note: 'Client emails a screenshot of their own BPay/deposit as proof.' },
           { id: '3.5.5', name: 'Reference Number Normalisation', status: 'H1', systems: ['Excel'], note: 'Reference carries an extra digit that must be stripped.' },
           { id: '3.5.6', name: 'Outstanding Balance Tracking', status: 'H1', systems: ['Tramada'], note: 'Client views the outstanding amount on the quote document.' },
@@ -315,7 +315,7 @@ export const domains = [
           { id: '4.2.1', name: 'BPay Payment Authority', status: 'H1', systems: ['Westpac'], note: 'A named holder can execute instant payment and provide confirmation.' },
           { id: '4.2.2', name: 'Human-in-the-Loop Approval', status: 'H1', systems: [], note: 'Explicit RAA requirement for any payment automation.' },
           { id: '4.2.3', name: 'Funds-Before-Supply Control', status: 'H1', systems: [], note: 'RAA cannot issue policy or pay a supplier until the money lands.' },
-          { id: '4.2.4', name: 'VCC Validity & Risk Sizing', status: 'H1', systems: ['Amadeus'], note: 'Validity up to 2 years; shorter windows for higher risk.' },
+          { id: '4.2.4', name: 'DVC Validity & Risk Sizing', status: 'H1', systems: ['Amadeus'], note: 'Validity up to 2 years; shorter windows for higher risk.' },
           { id: '4.2.5', name: 'Card Data Handling (PCI / CNP)', status: 'H1', systems: ['IPSI'], note: 'Card-not-present capture over the phone keypad.' },
           {
             id: '4.2.6', name: 'Chargeback & Supplier Recourse', status: 'H2', systems: ['Westpac'],
@@ -382,7 +382,7 @@ export const domains = [
         name: 'Core Platforms',
         caps: [
           { id: '5.1.1', name: 'Tramada — Booking & Finance Core', status: 'H1', systems: ['Tramada'], note: 'System of record for bookings, receipts, payments and invoices.' },
-          { id: '5.1.2', name: 'Amadeus — GDS & VCC', status: 'H1', systems: ['Amadeus'], note: 'Reservations plus the VCC Generator Smart Flow.' },
+          { id: '5.1.2', name: 'Amadeus — GDS & DVC', status: 'H1', systems: ['Amadeus'], note: 'Reservations plus the DVC Generator Smart Flow.' },
           { id: '5.1.3', name: 'Landscape — Member CRM', status: 'H1', systems: ['Landscape'], note: 'Source of member contact details and member number.' },
           { id: '5.1.4', name: 'IPSI — Card Payment Gateway', status: 'H1', systems: ['IPSI'], note: 'Card-not-present client payments.' },
           { id: '5.1.5', name: 'MINT — Supplier Payment Portal', status: 'H1', systems: ['MINT'], note: 'EFT payments out to suppliers.' },
@@ -434,7 +434,7 @@ export const domains = [
           { id: '5.2.1', name: 'GDS ↔ Tramada Integration', status: 'H2', systems: ['Amadeus', 'Tramada'], note: 'The ONLY live integration in the estate.' },
           { id: '5.2.2', name: 'Supplier & Wholesaler API Integration', status: 'H1', systems: [], note: 'Promised at contract signing, never delivered. Currently none.' },
           { id: '5.2.3', name: 'Bank Feed Ingestion', status: 'H1', systems: ['Westpac'], note: 'Manual daily download standing in for a feed.' },
-          { id: '5.2.4', name: 'RPA / Smart Flow Execution', status: 'H1', systems: ['Amadeus'], note: 'VCC Smart Flow is the only automation in the payment path today.' },
+          { id: '5.2.4', name: 'RPA / Smart Flow Execution', status: 'H1', systems: ['Amadeus'], note: 'DVC Smart Flow is the only automation in the payment path today.' },
           { id: '5.2.5', name: 'Travel Segment Auto-Creation', status: 'H1', systems: ['Tramada'], note: 'RAA is already building a POC for this.' },
           {
             id: '5.2.6', name: 'EFTPOS ↔ Tramada Integration', status: 'H1', systems: ['Westpac', 'Tramada'],
@@ -454,7 +454,7 @@ export const domains = [
         id: '5.3',
         name: 'Workforce Capability',
         caps: [
-          { id: '5.3.1', name: 'Consultant Onboarding Program', status: 'H2', systems: [], note: 'Six weeks from zero travel experience to fully-fledged agent.' },
+          { id: '5.3.1', name: 'Consultant Onboarding Program', status: 'H2', systems: [], note: 'Extensive ramp-up from zero travel experience to fully-fledged agent.' },
           { id: '5.3.2', name: 'Systems Training', status: 'H2', systems: [], note: 'Tramada-heavy, plus Amadeus, Tokio Marine and the wholesaler estate.' },
           { id: '5.3.3', name: 'Agent Support & Escalation', status: 'H2', systems: [], note: 'Training team absorbs booking finance escalations.' },
           { id: '5.3.4', name: 'Knowledge Management', status: 'H2', systems: ['Compass'], note: 'Policies and rules held as intranet documents.' },

@@ -7,7 +7,7 @@ export const themes = [
   { id: 'T4', name: 'Traceability Gaps', colour: '#15909C', desc: 'Reference numbers optional, malformed or missing entirely.' },
   { id: 'T5', name: 'Credential & Payment Control Risk', colour: '#BD4D3C', desc: 'Shared vaults, dummy cards and per-portal logins in the payment path.' },
   { id: 'T6', name: 'No Member Self-Service', colour: '#533F8C', desc: 'Screenshots and phone calls stand in for a member channel.' },
-  { id: 'T7', name: 'Capability Burden', colour: '#A67E6E', desc: 'Six weeks to competence as a symptom of system complexity.' },
+  { id: 'T7', name: 'Capability Burden', colour: '#A67E6E', desc: 'Extensive time to competence as a symptom of system complexity.' },
 ]
 
 const SRC = {
@@ -19,7 +19,7 @@ const SRC = {
 }
 
 export const challenges = [
-  // ── Sarah Mitchell · Travel Consultant ──────────────────────────────────
+  // ── Priya Anand · Travel Consultant ──────────────────────────────────
   {
     id: 'C1', persona: 'consultant', theme: 'T1', severity: 'Critical',
     title: 'No supplier integration — every non-GDS segment is keyed by hand',
@@ -30,19 +30,19 @@ export const challenges = [
     caps: ['2.2.5', '2.3.1', '5.2.2'],
   },
   {
-    id: 'C2', persona: 'consultant', theme: 'T2', severity: 'Critical',
+    id: 'C2', persona: 'consultant', theme: 'T2', severity: 'High',
     title: 'Post-consultation admin dominates the role',
     detail:
-      'The booking conversation itself is efficient. The administrative tail behind it is where consultant capacity is consumed.',
+      'The booking conversation itself is efficient. What consumes consultant capacity afterwards is receipting the client\'s payment across two systems — selecting a dummy card, entering payment details by phone keypad, allocating to segments — then following up for a payment screenshot when it doesn\'t self-evidence. That tail routinely runs longer than the booking conversation itself, and is the largest single driver of time-to-competency for new starters.',
     evidence: '"The biggest cause of inefficiency that we heard was that after-consultation admin." — "Which is the Tramada side, yeah."',
     source: SRC.TX,
     caps: ['2.3.1', '2.3.8', '3.2.1'],
   },
   {
     id: 'C3', persona: 'consultant', theme: 'T7', severity: 'High',
-    title: 'Tramada is mandatory-field heavy and cannot be skipped through',
+    title: 'Mandatory fields are not tailored to use case',
     detail:
-      'Compliance obligations mean required data cannot be deferred, making large bookings disproportionately long.',
+      'Tramada gets this wrong in both directions. Some fields are made mandatory for compliance reasons (e.g. insurance) that cannot be deferred, making large bookings disproportionately long. Other fields that should be mandatory to protect data quality and traceability — a reference number, a policy number — are not, so they get skipped under time pressure with no system prompt to catch it.',
     evidence: '"Tramada itself needs a lot of information, so you can\'t always skip over things… because we\'re so compliant with things like insurance, it becomes this very long process, especially if you\'re doing a very big booking."',
     source: SRC.TX,
     caps: ['2.1.1', '4.5.4'],
@@ -77,7 +77,7 @@ export const challenges = [
     id: 'C7', persona: 'consultant', theme: 'T2', severity: 'High',
     title: 'Manual virtual credit card handling end to end',
     detail:
-      'Run the Amadeus VCC Generator Smart Flow, populate six fields, copy the card number and expiry into the supplier site, then raise an agency CC debtor receipt and write off the VCC.',
+      'Run the Amadeus DVC Generator Smart Flow, populate six fields, copy the card number and expiry into the supplier site, then raise an agency CC debtor receipt and write off the DVC.',
     evidence: 'Fields: currency/amount, transaction validity period, agent initial & store code, Tramada booking #, supplier name, lead passenger name.',
     source: SRC.BP,
     caps: ['3.3.2', '3.3.3', '3.2.7', '3.3.8'],
@@ -117,15 +117,6 @@ export const challenges = [
     caps: ['4.2.3', '3.1.5', '3.3.1'],
   },
   {
-    id: 'C12', persona: 'consultant', theme: 'T6', severity: 'High',
-    title: 'Chasing the client for acceptance, payment and evidence',
-    detail:
-      'Quote review runs days to weeks, then the consultant follows up for payment and again for a payment screenshot.',
-    evidence: 'AS-IS itinerary flow annotates "Review Time: Days/Weeks" on the client review loop.',
-    source: SRC.BP,
-    caps: ['1.3.4', '3.5.4'],
-  },
-  {
     id: 'C13', persona: 'consultant', theme: 'T4', severity: 'Medium',
     title: 'Booking notes have a character limit',
     detail: 'Critical booking context — payment references, acceptance detail, supplier conditions — gets truncated in the only free-text field available.',
@@ -134,7 +125,7 @@ export const challenges = [
     caps: ['2.1.5', '4.4.2'],
   },
 
-  // ── Helen Whitmore · RAA Member ─────────────────────────────────────────
+  // ── Grace Sullivan · RAA Member ─────────────────────────────────────────
   {
     id: 'C14', persona: 'member', theme: 'T3', severity: 'Critical',
     title: 'Days of waiting before the booking is receipted',
@@ -142,14 +133,6 @@ export const challenges = [
     evidence: 'AS-IS BPay flow: "It takes up to 3 working days." Direct Deposit: "This can take up to 7 working days." Cheque: "have to wait 5 working days."',
     source: SRC.BP,
     caps: ['3.1.5', '3.1.6', '3.1.4', '3.5.1'],
-  },
-  {
-    id: 'C15', persona: 'member', theme: 'T6', severity: 'High',
-    title: 'The member does RAA\'s reconciliation work',
-    detail: 'Clients email a screenshot of their own BPay or direct deposit payment so Accounts can match it.',
-    evidence: '"Emails screenshot of BPay or direct deposit payment confirmation." / "Email Copy of BPay Payment (Screen Shot)."',
-    source: SRC.BLUE,
-    caps: ['3.5.4', '4.4.4'],
   },
   {
     id: 'C16', persona: 'member', theme: 'T5', severity: 'High',
@@ -169,8 +152,8 @@ export const challenges = [
   },
   {
     id: 'C18', persona: 'member', theme: 'T3', severity: 'Medium',
-    title: 'No instalment payment option',
-    detail: 'The current flow supports full payment only. Instalments are an acknowledged gap.',
+    title: 'No formal instalment plan, only ad-hoc separate transactions',
+    detail: 'A member is not limited to one full payment — they can pay via several separate transactions across the day — but there is no formal, planned instalment option with scheduled amounts and dates. Any splitting happens informally and is tracked manually rather than by the system.',
     evidence: '"This flow currently only caters for full payment, not part payment yet." Final page: "To Do: Instalment Payment."',
     source: SRC.BP,
     caps: ['3.1.9', '3.1.8'],
@@ -184,15 +167,7 @@ export const challenges = [
     caps: ['1.4.1', '1.4.2', '2.5.3'],
   },
 
-  // ── Nadia Rossi · Accounts Team Officer ─────────────────────────────────
-  {
-    id: 'C20', persona: 'accounts', theme: 'T2', severity: 'High',
-    title: '30–60 minutes of manual bank downloads every morning',
-    detail: 'The BPay report is downloaded from Westpac daily and pasted into a spreadsheet to be matched by hand.',
-    evidence: '"30 to 60 minutes a day, download from Westpac — put into our spreadsheet." / "Download BPAY report every morning."',
-    source: SRC.BLUE,
-    caps: ['3.5.3', '5.2.3'],
-  },
+  // ── Elena Vasquez · Accounts Team Officer ─────────────────────────────────
   {
     id: 'C21', persona: 'accounts', theme: 'T4', severity: 'High',
     title: 'Reference numbers carry an extra digit',
@@ -234,30 +209,14 @@ export const challenges = [
     caps: ['3.5.7', '2.3.8', '3.2.5'],
   },
 
-  // ── Megan Gray · Training & Development ─────────────────────────────────
+  // ── Rachel Kim · Training & Development ─────────────────────────────────
   {
     id: 'C26', persona: 'trainer', theme: 'T7', severity: 'High',
-    title: 'Six weeks from zero experience to fully-fledged agent',
-    detail: 'New starters with no travel background must learn the entire system estate before they can operate independently.',
-    evidence: '"We take brand new people that have never been in travel and show them all the systems, give them six weeks and then they\'re out being fully fledged travel agents."',
+    title: 'Extensive time to competence across a very large system estate',
+    detail: 'New starters with no travel background must learn the entire system estate before they can operate independently — including Amadeus, a powerful but DOS-era GDS with a steep, unforgiving learning curve even with point-and-click added.',
+    evidence: '"We take brand new people that have never been in travel and show them all the systems... and then they\'re out being fully fledged travel agents." / "It\'s like a DOS based system and now has got some integration with graphics so you can do point and click… It\'s just a big system to learn."',
     source: SRC.TX,
-    caps: ['5.3.1', '5.3.2'],
-  },
-  {
-    id: 'C27', persona: 'trainer', theme: 'T7', severity: 'High',
-    title: 'Amadeus is a DOS-era GDS with a graphical veneer',
-    detail: 'The reservations system is powerful but has a steep, unforgiving learning curve even with point-and-click added.',
-    evidence: '"It\'s like a DOS based system and now has got some integration with graphics so you can do point and click… It\'s just a big system to learn."',
-    source: SRC.TX,
-    caps: ['5.1.2', '5.3.2'],
-  },
-  {
-    id: 'C28', persona: 'trainer', theme: 'T7', severity: 'Medium',
-    title: 'The training function is the fallback integration layer',
-    detail: 'Beyond training, Megan absorbs agents\' booking finance escalations and daily sales analytics.',
-    evidence: '"If they\'ve got issues with their finance of their booking or bookings in general, I do a fair bit of that as well, and a bit of data and analytics."',
-    source: SRC.TX,
-    caps: ['5.3.3', '5.4.1'],
+    caps: ['5.3.1', '5.3.2', '5.1.2'],
   },
   {
     id: 'C29', persona: 'trainer', theme: 'T1', severity: 'Critical',
@@ -267,16 +226,7 @@ export const challenges = [
     source: SRC.TX,
     caps: ['5.2.2', '5.2.1'],
   },
-  {
-    id: 'C30', persona: 'trainer', theme: 'T2', severity: 'High',
-    title: 'Human error drives inconsistent data that surfaces later as finance problems',
-    detail: 'Manual entry on most details produces inconsistency that only becomes visible in reconciliation and reporting.',
-    evidence: '"Manual data entry on most details." / "Inconsistent data due to human errors."',
-    source: SRC.BLUE,
-    caps: ['5.4.2', '5.4.3'],
-  },
-
-  // ── Tom Nguyen · Product / Travel Support ───────────────────────────────
+  // ── Daniel Osei · Product / Travel Support ───────────────────────────────
   {
     id: 'C31', persona: 'support', theme: 'T2', severity: 'Medium',
     title: 'New supplier onboarding is a SharePoint form and an email',
@@ -287,9 +237,8 @@ export const challenges = [
   },
   {
     id: 'C32', persona: 'support', theme: 'T2', severity: 'High',
-    title: 'Hotel names and addresses hand-typed, creating duplicates',
-    detail: 'When a hotel is missing from the list, its name and address are typed manually — producing duplicate and dirty master data.',
-    evidence: '"Hotel Name & Address are manually populated if it does not exist in the existing Hotel List."',
+    title: 'Master and customer data are hand-typed, creating duplicates and inconsistency',
+    detail: 'When a hotel is missing from the list, its name and address are typed manually — producing duplicate and dirty master data. The same manual re-entry happens with customer details, which are retyped rather than pulled from an existing record. Both create room for error and leave master data inconsistent across bookings.',
     source: SRC.BP,
     caps: ['2.4.1', '5.4.2'],
   },
@@ -311,14 +260,14 @@ export const challenges = [
   },
   {
     id: 'C35', persona: 'support', theme: 'T1', severity: 'Critical',
-    title: 'No supplier APIs at all, so master data can never self-heal',
-    detail: 'Without integrations, every correction is manual and the same errors recur across bookings.',
+    title: 'No supplier APIs at all, master data is not saved and must be manually replicated',
+    detail: 'Without integrations, every correction is manual and must be re-entered by hand each time it recurs, which increases room for error across bookings.',
     evidence: '"Currently no API integrations." RAA is separately creating a POC to automate travel segment creation.',
     source: SRC.BLUE,
     caps: ['5.2.2', '5.2.5'],
   },
 
-  // ── Nadia · Accounts — back-office reconciliation (from the workshops) ──
+  // ── Elena · Accounts — back-office reconciliation (from the workshops) ──
   {
     id: 'C36', persona: 'accounts', theme: 'T2', severity: 'Critical',
     title: 'Reconciliation is thousands of manual ticks across dozens of pages',
@@ -383,16 +332,7 @@ export const challenges = [
     caps: ['2.4.1', '3.5.14'],
   },
 
-  // ── Heath · Travel Finance & Commercial ────────────────────────────────
-  {
-    id: 'C43', persona: 'finance', theme: 'T7', severity: 'Critical',
-    title: 'Volume tripled since COVID on unchanged finance headcount',
-    detail:
-      'Sales, agents and transactions have all roughly tripled while travel accounts staffing has not moved — so three times the errors are fixed by the same team, and the backlog compounds.',
-    evidence: '"We\'ve basically tripled our sales… tripled our agents… but we\'ve got the same amount of travel account staff as before COVID. Three times bigger comes with three times more errors… it\'s just a vicious circle."',
-    source: SRC.W1,
-    caps: ['5.3.5', '3.5.8'],
-  },
+  // ── Marcus · Travel Finance & Commercial ────────────────────────────────
   {
     id: 'C44', persona: 'finance', theme: 'T2', severity: 'Critical',
     title: 'EFTPOS terminals are not connected to Tramada',
@@ -404,9 +344,9 @@ export const challenges = [
   },
   {
     id: 'C45', persona: 'finance', theme: 'T2', severity: 'Critical',
-    title: 'Payment errors cost real money, not just time',
+    title: 'Human error at the keyboard costs real money, not just time',
     detail:
-      'Wrong suppliers get paid, digits get transposed and decimal points dropped. RAA formally tracks debits (pending supplier refunds) and write-offs (money lost outright).',
+      'A single mis-typed digit turns into a large loss — an agent adds an extra 0 and a $7,000 payment becomes a $700,000 payment. Wrong suppliers get paid, digits get transposed and decimal points dropped. RAA formally tracks debits (pending supplier refunds) and write-offs (money lost outright).',
     evidence: '"We\'ve had very large payments made because they\'ve used the supplier number as the payment amount." / "A $7,000 payment becomes a $700,000 payment, which we\'ve seen." / "We\'ve had another payment this morning where they\'ve paid the wrong supplier."',
     source: `${SRC.W1} · ${SRC.W2}`,
     caps: ['3.3.9', '3.3.10'],
@@ -439,7 +379,7 @@ export const challenges = [
     caps: ['4.3.4', '4.2.7'],
   },
 
-  // ── Tom · Product / Travel Support ─────────────────────────────────────
+  // ── Daniel · Product / Travel Support ─────────────────────────────────────
   {
     id: 'C49', persona: 'support', theme: 'T4', severity: 'High',
     title: 'Supplier and creditor are different things, and get conflated',
@@ -450,15 +390,15 @@ export const challenges = [
     caps: ['2.4.6', '3.3.6'],
   },
 
-  // ── Sarah · Travel Consultant ──────────────────────────────────────────
+  // ── Marcus Chen · Travel Finance & Commercial ───────────────────────────
   {
-    id: 'C50', persona: 'consultant', theme: 'T2', severity: 'High',
-    title: 'Shortcuts that save the agent seconds cost finance hours',
+    id: 'C50', persona: 'finance', theme: 'T2', severity: 'High',
+    title: 'Shortcuts and inconsistent manual entry cost finance hours to unwind',
     detail:
-      'Under pressure to sell, consultants skip steps intending to return to them and rarely do. The saving is measured in seconds at the front and the cost in hours at the back.',
-    evidence: '"It might save them 20 seconds here and a minute here… what they\'re not understanding is the flow-on effect it has on the travel accounts team." / "Make it easy to do the right thing and hard to do the wrong thing."',
-    source: SRC.W1,
-    caps: ['4.4.1', '5.4.2'],
+      'Under pressure to sell, consultants skip steps intending to return to them and rarely do — the saving is measured in seconds at the front and the cost in hours at the back. The same manual entry that enables the shortcut also produces inconsistent data across most booking details, which only becomes visible later, in reconciliation and reporting, where the finance team absorbs the time and effort to trace and fix it.',
+    evidence: '"It might save them 20 seconds here and a minute here… what they\'re not understanding is the flow-on effect it has on the travel accounts team." / "Make it easy to do the right thing and hard to do the wrong thing." / "Manual data entry on most details." / "Inconsistent data due to human errors."',
+    source: `${SRC.W1} · ${SRC.BLUE}`,
+    caps: ['4.4.1', '5.4.2', '5.4.3'],
   },
 ]
 

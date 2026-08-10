@@ -1,12 +1,15 @@
 import React, { useMemo, useState } from 'react'
 import { challenges, themes, severityOrder, severityColour } from '../data/challenges.js'
 import { personas } from '../data/personas.js'
+import { allCaps } from '../data/capabilities.js'
+import CapabilityDrawer from './CapabilityDrawer.jsx'
 
 export default function Challenges() {
   const [personaFilter, setPersonaFilter] = useState([])
   const [themeFilter, setThemeFilter] = useState([])
   const [sevFilter, setSevFilter] = useState([])
   const [query, setQuery] = useState('')
+  const [selectedCap, setSelectedCap] = useState(null)
 
   const toggle = (setter, v) =>
     setter((prev) => (prev.includes(v) ? prev.filter((x) => x !== v) : [...prev, v]))
@@ -168,9 +171,14 @@ export default function Challenges() {
                     <div className="srcline">Source: {c.source}</div>
                     <div className="caplinks">
                       {c.caps.map((id) => (
-                        <span className="caplink" key={id}>
+                        <button
+                          type="button"
+                          className="caplink"
+                          key={id}
+                          onClick={() => setSelectedCap(allCaps.find((x) => x.id === id))}
+                        >
                           {id}
-                        </span>
+                        </button>
                       ))}
                     </div>
                   </article>
@@ -204,6 +212,8 @@ export default function Challenges() {
           </div>
         </div>
       </div>
+
+      {selectedCap && <CapabilityDrawer cap={selectedCap} onClose={() => setSelectedCap(null)} />}
     </div>
   )
 }

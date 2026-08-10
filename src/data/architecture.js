@@ -21,7 +21,7 @@ export const layers = [
     blurb: 'Tramada is the system of record — but almost nothing feeds it automatically.',
     systems: [
       { id: 'tramada', name: 'Tramada', kind: 'Core', purpose: 'Bookings, segments, costings, receipts, creditor payments, invoices.', integration: 'partial', core: true },
-      { id: 'amadeus', name: 'Amadeus', kind: 'GDS', purpose: 'Flight reservations and the VCC Generator Smart Flow.', integration: 'api' },
+      { id: 'amadeus', name: 'Amadeus', kind: 'GDS', purpose: 'Flight reservations and the DVC Generator Smart Flow.', integration: 'api' },
       { id: 'landscape', name: 'Landscape', kind: 'CRM', purpose: 'Member contact details and member number.', integration: 'manual' },
       { id: 'compass', name: 'Compass', kind: 'Intranet', purpose: 'Schedule of Fees, staff discount rules, EAT templates.', integration: 'none' },
     ],
@@ -76,7 +76,7 @@ export const flows = [
   { from: 'Landscape', to: 'Tramada', mechanism: 'Manual copy', status: 'manual', note: 'Email, phone and member # copied across by the consultant.' },
   { from: 'Wholesalers / LCC', to: 'Tramada', mechanism: 'Manual re-key', status: 'none', note: 'Every segment built by hand — the single largest time sink.' },
   { from: 'Tramada', to: 'MINT', mechanism: 'Manual re-key', status: 'manual', note: 'Creditor payable amount and six fields retyped. Known error source.' },
-  { from: 'Amadeus (VCC)', to: 'Supplier portal', mechanism: 'Copy / paste', status: 'partial', note: 'Card number and expiry pasted into the supplier payment page.' },
+  { from: 'Amadeus (DVC)', to: 'Supplier portal', mechanism: 'Copy / paste', status: 'partial', note: 'Card number and expiry pasted into the supplier payment page.' },
   { from: 'IPSI', to: 'Tramada', mechanism: 'Manual note', status: 'manual', note: 'Payment confirmation summarised into booking notes.' },
   { from: 'Westpac', to: 'Spreadsheet', mechanism: 'Daily file download', status: 'manual', note: '30–60 minutes each morning; reference digit stripped by hand.' },
   { from: 'Spreadsheet', to: 'Tramada', mechanism: 'Manual receipt', status: 'manual', note: 'Debtor payment receipt created per matched payment.' },

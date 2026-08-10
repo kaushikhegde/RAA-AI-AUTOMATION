@@ -91,22 +91,6 @@ export default function App() {
           </span>
 
           <div className="header-actions">
-            {tab === 'personas' && (
-              <>
-                <button
-                  className={`btn-ghost${personaView === 'overview' ? ' is-active' : ''}`}
-                  onClick={() => setPersonaView('overview')}
-                >
-                  ▦ Overview
-                </button>
-                <button
-                  className={`btn-ghost${personaView === 'journeys' ? ' is-active' : ''}`}
-                  onClick={() => setPersonaView('journeys')}
-                >
-                  ⤳ Journeys
-                </button>
-              </>
-            )}
             <span className="count-pill" title="Current state, as documented">
               Current state
             </span>
