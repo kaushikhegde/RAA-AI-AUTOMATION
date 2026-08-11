@@ -1,8 +1,10 @@
 import React, { useMemo, useState } from 'react'
 import { domains, allCaps, groupCount } from '../data/capabilities.js'
+import { opportunities } from '../data/opportunities.js'
 import CapabilityDrawer from './CapabilityDrawer.jsx'
 
 const ZOOMS = [0.75, 0.85, 1, 1.15]
+const CAPS_WITH_OPPORTUNITIES = new Set(opportunities.flatMap((o) => o.caps))
 
 export default function CapabilityMap() {
   const [query, setQuery] = useState('')
@@ -51,7 +53,18 @@ export default function CapabilityMap() {
           {allCaps.length} capabilities across {domains.length} domains, derived from the AS-IS process
           pack, the current-state service blueprint, the SME session and the two Tramada Finance AI
           workshops of July 2026. Select any capability to see the systems it runs on, the personas it
-          affects and the challenges recorded against it.
+          affects, and the AI opportunities and challenges recorded against it.
+        </p>
+        <p style={{ marginTop: -6 }}>
+          <span
+            aria-hidden="true"
+            style={{
+              display: 'inline-block', width: 8, height: 8, borderRadius: '50%',
+              background: '#1b6b32', marginRight: 7,
+            }}
+          />
+          {CAPS_WITH_OPPORTUNITIES.size} capabilities carry one of {opportunities.length} proposed AI
+          opportunities from the Payments &amp; Reconciliation workshop.
         </p>
       </div>
 
@@ -158,6 +171,16 @@ export default function CapabilityMap() {
                           >
                             <span className="cap-id">{c.id}</span>
                             <span className="cap-name">{c.name}</span>
+                            {CAPS_WITH_OPPORTUNITIES.has(c.id) && (
+                              <span
+                                aria-label="Has a proposed AI opportunity"
+                                title="Has a proposed AI opportunity"
+                                style={{
+                                  display: 'inline-block', width: 7, height: 7, borderRadius: '50%',
+                                  background: '#1b6b32', flex: 'none', marginLeft: 6,
+                                }}
+                              />
+                            )}
                           </button>
                         ))}
                       </div>

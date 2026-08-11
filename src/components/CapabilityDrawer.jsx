@@ -1,9 +1,11 @@
 import React from 'react'
 import { challenges } from '../data/challenges.js'
 import { personas } from '../data/personas.js'
+import { opportunities } from '../data/opportunities.js'
 
 export default function CapabilityDrawer({ cap, onClose }) {
   const related = challenges.filter((c) => c.caps.includes(cap.id))
+  const relatedOpportunities = opportunities.filter((o) => o.caps.includes(cap.id))
   const relatedPersonas = [...new Set(related.map((c) => c.persona))]
     .map((id) => personas.find((p) => p.id === id))
     .filter(Boolean)
@@ -52,6 +54,41 @@ export default function CapabilityDrawer({ cap, onClose }) {
                   <span className="tag" key={p.id}>
                     {p.emoji} {p.name} · {p.role}
                   </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {relatedOpportunities.length > 0 && (
+            <div className="meta-block">
+              <div className="meta-label">AI opportunities ({relatedOpportunities.length})</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {relatedOpportunities.map((o) => (
+                  <div
+                    key={o.id}
+                    style={{
+                      border: '1px solid var(--ok-line)',
+                      borderRadius: 8,
+                      padding: '10px 12px',
+                      background: 'var(--ok-bg)',
+                    }}
+                  >
+                    <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 5 }}>
+                      <span className="chal-id" style={{ background: '#1b6b32' }}>{o.id}</span>
+                      <span style={{ fontSize: 10.5, fontWeight: 800, color: 'var(--grey-500)' }}>
+                        {o.processStep.toUpperCase()}
+                      </span>
+                    </div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--raa-ink)', lineHeight: 1.35 }}>
+                      {o.title}
+                    </div>
+                    <p style={{ fontSize: 12.5, color: 'var(--grey-700)', lineHeight: 1.45, margin: '6px 0 0' }}>
+                      {o.description}
+                    </p>
+                    <div style={{ fontSize: 11.5, fontWeight: 700, color: '#1b6b32', marginTop: 6 }}>
+                      ✓ {o.benefit}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
