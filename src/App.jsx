@@ -3,17 +3,20 @@ import Personas from './components/Personas.jsx'
 import CapabilityMap from './components/CapabilityMap.jsx'
 import Challenges from './components/Challenges.jsx'
 import Processes from './components/Processes.jsx'
+import Opportunities from './components/Opportunities.jsx'
 import Login from './components/Login.jsx'
 import { personas } from './data/personas.js'
 import { challenges } from './data/challenges.js'
 import { allCaps } from './data/capabilities.js'
 import { processes } from './data/processes.js'
+import { opportunities } from './data/opportunities.js'
 
 const TABS = [
   { id: 'personas', label: 'Personas', count: personas.length },
   { id: 'process', label: 'Process', count: processes.length },
   { id: 'capabilities', label: 'Capabilities', count: allCaps.length },
   { id: 'challenges', label: 'Challenges', count: challenges.length },
+  { id: 'opportunities', label: 'Opportunities', count: opportunities.length },
 ]
 
 // Tab state lives in the URL hash (#capabilities, #personas/journeys, #process/pay-bpay)
@@ -82,7 +85,7 @@ export default function App() {
           <span className="header-divider" aria-hidden="true" />
           <div className="header-titles">
             <h1>Travel Booking &amp; Payments — Solution Guide</h1>
-            <div className="kicker">Personas · Process · Capabilities · Challenges</div>
+            <div className="kicker">Personas · Process · Capabilities · Challenges · Opportunities</div>
           </div>
 
           <span className="count-pill">
@@ -123,6 +126,7 @@ export default function App() {
         {tab === 'process' && <Processes activeId={processId} onSelect={setProcessId} />}
         {tab === 'capabilities' && <CapabilityMap />}
         {tab === 'challenges' && <Challenges />}
+        {tab === 'opportunities' && <Opportunities />}
       </main>
 
       <footer className="app-footer">
