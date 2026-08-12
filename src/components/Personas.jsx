@@ -4,12 +4,23 @@ import { challenges } from '../data/challenges.js'
 import consultantJourney from '../assets/journeys/consultant-journey.png'
 import accountsJourney from '../assets/journeys/accounts-journey.png'
 import financeJourney from '../assets/journeys/finance-journey.png'
+import memberJourney from '../assets/journeys/member-journey.png'
+import trainerJourney from '../assets/journeys/trainer-journey.png'
+import supportJourney from '../assets/journeys/support-journey.png'
 
 const JOURNEY_IMAGES = {
   consultant: consultantJourney,
   accounts: accountsJourney,
   finance: financeJourney,
+  member: memberJourney,
+  trainer: trainerJourney,
+  support: supportJourney,
 }
+
+// Primary users are the three roles the payments/reconciliation automation is being scoped for;
+// the rest are mapped for completeness but are secondary to this analysis.
+const PRIMARY_PERSONAS = personas.filter((p) => p.primary)
+const SECONDARY_PERSONAS = personas.filter((p) => !p.primary)
 
 export default function Personas({ view, onViewChange }) {
   return (
@@ -40,6 +51,9 @@ export default function Personas({ view, onViewChange }) {
 }
 
 function Overview() {
+  const [tier, setTier] = useState('primary')
+  const shown = tier === 'primary' ? PRIMARY_PERSONAS : SECONDARY_PERSONAS
+
   return (
     <>
       <div className="section-head">
@@ -53,58 +67,37 @@ function Overview() {
         </p>
       </div>
 
+      <div className="pillrow" role="group" aria-label="Filter by role priority">
+        <button
+          className={`pill pill-all${tier === 'primary' ? ' is-active' : ''}`}
+          onClick={() => setTier('primary')}
+        >
+          ★ Priority roles ({PRIMARY_PERSONAS.length})
+        </button>
+        <button
+          className={`pill${tier === 'secondary' ? ' is-active' : ''}`}
+          onClick={() => setTier('secondary')}
+        >
+          Supporting roles ({SECONDARY_PERSONAS.length})
+        </button>
+      </div>
+
+      <div className="persona-tier-label">
+        {tier === 'primary' ? (
+          <>
+            <span className="tier-dot tier-dot-primary" aria-hidden="true" />
+            This automation is scoped for these {PRIMARY_PERSONAS.length} roles
+          </>
+        ) : (
+          <>
+            <span className="tier-dot tier-dot-secondary" aria-hidden="true" />
+            Mapped for completeness — downstream of the priority roles
+          </>
+        )}
+      </div>
       <div className="persona-grid">
-        {personas.map((p) => (
-          <article className="persona-card" key={p.id}>
-            <div className="persona-top">
-              <span className="avatar" style={{ borderColor: p.accent }} aria-hidden="true">
-                {p.emoji}
-              </span>
-              <div>
-                <h3>{p.name}</h3>
-                <div className="role">{p.role}</div>
-                <div className="ctx">{p.context}</div>
-              </div>
-            </div>
-
-            <div className="tt-grid">
-              <div className="tt tt-today">
-                <h4>Today</h4>
-                <ul>
-                  {p.today.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              </div>
-              <div className="tt tt-tomorrow">
-                <h4>Tomorrow</h4>
-                <ul>
-                  {p.tomorrow.map((t) => (
-                    <li key={t}>{t}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="persona-foot">
-              <div className="meta-label">Key benefit</div>
-              <div className="benefit">{p.keyBenefit}</div>
-              <div className="goal">&ldquo;{p.goalStatement}&rdquo;</div>
-              <div style={{ marginTop: 10, fontSize: 11, color: 'var(--grey-500)', fontWeight: 700 }}>
-                {p.challengeIds.length} recorded challenges
-              </div>
-              {p.evidenceNote && (
-                <div
-                  style={{
-                    marginTop: 8, fontSize: 11.5, lineHeight: 1.45, fontStyle: 'italic',
-                    color: 'var(--grey-500)', borderTop: '1px solid var(--grey-200)', paddingTop: 8,
-                  }}
-                >
-                  {p.evidenceNote}
-                </div>
-              )}
-            </div>
-          </article>
+        {shown.map((p) => (
+          <PersonaCard persona={p} key={p.id} />
         ))}
       </div>
 
@@ -118,14 +111,82 @@ function Overview() {
   )
 }
 
+function PersonaCard({ persona: p }) {
+  return (
+    <article className={`persona-card${p.primary ? ' is-primary' : ''}`}>
+      {p.primary ? (
+        <span className="primary-badge" title={p.primaryReason}>★ Primary user</span>
+      ) : (
+        <span className="secondary-badge">Supporting role</span>
+      )}
+      <div className="persona-top">
+        <span className="avatar" style={{ borderColor: p.accent }} aria-hidden="true">
+          {p.emoji}
+        </span>
+        <div>
+          <h3>{p.name}</h3>
+          <div className="role">{p.role}</div>
+          <div className="ctx">{p.context}</div>
+        </div>
+      </div>
+
+      <div className="tt-grid">
+        <div className="tt tt-today">
+          <h4>Today</h4>
+          <ul>
+            {p.today.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="tt tt-tomorrow">
+          <h4>Tomorrow</h4>
+          <ul>
+            {p.tomorrow.map((t) => (
+              <li key={t}>{t}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="persona-foot">
+        <div className="meta-label">Key benefit</div>
+        <div className="benefit">{p.keyBenefit}</div>
+        <div className="goal">&ldquo;{p.goalStatement}&rdquo;</div>
+        <div style={{ marginTop: 10, fontSize: 11, color: 'var(--grey-500)', fontWeight: 700 }}>
+          {p.challengeIds.length} recorded challenges
+        </div>
+        {p.evidenceNote && (
+          <div
+            style={{
+              marginTop: 8, fontSize: 11.5, lineHeight: 1.45, fontStyle: 'italic',
+              color: 'var(--grey-500)', borderTop: '1px solid var(--grey-200)', paddingTop: 8,
+            }}
+          >
+            {p.evidenceNote}
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}
+
 function Journeys() {
-  const [activeId, setActiveId] = useState(personas[0].id)
+  const [tier, setTier] = useState('primary')
+  const [activeId, setActiveId] = useState(PRIMARY_PERSONAS[0].id)
   const [lightbox, setLightbox] = useState(false)
+  const group = tier === 'primary' ? PRIMARY_PERSONAS : SECONDARY_PERSONAS
   const p = personas.find((x) => x.id === activeId)
   const image = JOURNEY_IMAGES[p.id]
 
   const selectPersona = (id) => {
     setActiveId(id)
+    setLightbox(false)
+  }
+
+  const selectTier = (t) => {
+    setTier(t)
+    setActiveId((t === 'primary' ? PRIMARY_PERSONAS : SECONDARY_PERSONAS)[0].id)
     setLightbox(false)
   }
 
@@ -140,15 +201,33 @@ function Journeys() {
         </p>
       </div>
 
+      <div className="pillrow" role="group" aria-label="Filter by role priority">
+        <button
+          className={`pill pill-all${tier === 'primary' ? ' is-active' : ''}`}
+          onClick={() => selectTier('primary')}
+        >
+          ★ Priority roles ({PRIMARY_PERSONAS.length})
+        </button>
+        <button
+          className={`pill${tier === 'secondary' ? ' is-active' : ''}`}
+          onClick={() => selectTier('secondary')}
+        >
+          Supporting roles ({SECONDARY_PERSONAS.length})
+        </button>
+      </div>
+
       <div className="persona-switch" role="group" aria-label="Choose a persona">
-        {personas.map((x) => (
+        {group.map((x) => (
           <button
             key={x.id}
-            className="pswitch"
+            className={`pswitch${x.primary ? ' pswitch-primary' : ''}`}
             aria-pressed={x.id === activeId}
             onClick={() => selectPersona(x.id)}
           >
-            <span className="n">{x.name.split(' ')[0]}</span>
+            <span className="n">
+              {x.primary && <span className="pswitch-star" aria-hidden="true">★ </span>}
+              {x.name.split(' ')[0]}
+            </span>
             <span className="r">{x.role}</span>
           </button>
         ))}

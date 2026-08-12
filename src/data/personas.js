@@ -10,6 +10,8 @@ export const personas = [
     role: 'Travel Consultant',
     emoji: '🧳',
     accent: '#130064',
+    primary: true,
+    primaryReason: 'Highest-volume, highest-error-rate lane — the front-line consultant appears in every AS-IS diagram.',
     context:
       'Retail-store and phone-based consultant taking a family holiday from first enquiry through to invoice — the primary lane in every AS-IS diagram.',
     goalStatement:
@@ -120,50 +122,13 @@ export const personas = [
   },
 
   {
-    id: 'member',
-    name: 'Grace Sullivan',
-    role: 'RAA Member / Client',
-    emoji: '🧭',
-    accent: '#00349F',
-    context:
-      'Long-standing RAA member booking a multi-segment overseas trip. Reviews the quote over a week, then pays by BPay — sometimes a deposit first, then the balance.',
-    goalStatement:
-      'Book with confidence and know my money has landed and my trip is actually secured.',
-    today: [
-      'Waits 3–7 working days for payment to be recognised before her booking is confirmed',
-      'Reads card digits into a phone keypad, or pays via BPay with no confirmation the funds have landed',
-      'No way to check booking or payment status without ringing the consultant',
-      'Everything arrives as an email attachment — quote, itinerary, acceptance form',
-      'No formal instalment option, only ad-hoc separate payments tracked manually',
-    ],
-    tomorrow: [
-      'Settlement recognised same day, booking confirmed without the wait',
-      'Secure self-service payment on her own device, with instant confirmation',
-      'Live booking and payment status she can check herself, any time',
-      'Documents and acceptance available in one place, no email attachments to manage',
-      'A clear, scheduled instalment option if she wants to split the cost',
-    ],
-    keyBenefit: 'Certainty her trip is confirmed, without doing RAA\'s paperwork',
-    challengeIds: ['C14', 'C16', 'C17', 'C18', 'C19'],
-    journey: [
-      { stage: 'Enquiry', today: 'Calls or visits a branch', tomorrow: 'Same warm consult, better prepared', emotion: '😊', mood: 'Hopeful' },
-      { stage: 'Client Setup', today: 'Repeats details already held by RAA', tomorrow: 'Recognised as a member instantly', emotion: '😐', mood: 'Resigned' },
-      { stage: 'Sourcing', today: 'Waits while options are assembled', tomorrow: 'Options presented in one view', emotion: '🙂', mood: 'Interested' },
-      { stage: 'Segments & Costing', today: 'Invisible to her', tomorrow: 'Transparent, itemised costing', emotion: '😐', mood: 'Neutral' },
-      { stage: 'Quote & Acceptance', today: 'PDF attachment, print, sign, scan', tomorrow: 'Digital acceptance in two taps', emotion: '😕', mood: 'Inconvenienced' },
-      { stage: 'Client Payment', today: 'Keys card over the phone, or BPays blind', tomorrow: 'Secure link, method of her choosing', emotion: '😰', mood: 'Uneasy' },
-      { stage: 'Receipting', today: 'Emails a screenshot and waits', tomorrow: 'Instant receipt to her inbox', emotion: '😟', mood: 'Uncertain' },
-      { stage: 'Supplier Payment', today: 'Invisible — but it gates her booking', tomorrow: 'Booking confirmed as soon as funds clear', emotion: '😶', mood: 'In the dark' },
-      { stage: 'Invoice & Close', today: 'Multiple invoices, unclear totals', tomorrow: 'One clear statement of her trip', emotion: '🙂', mood: 'Satisfied' },
-    ],
-  },
-
-  {
     id: 'accounts',
     name: 'Elena Vasquez',
     role: 'Accounts Team Officer',
     emoji: '📊',
     accent: '#15909C',
+    primary: true,
+    primaryReason: 'The compensating control for the whole front office — every payment stream is reconciled through this role.',
     context:
       'The compensating control for the whole front office. Reconciles every inbound and outbound stream against the bank — BPay, DVC, MINT, TravelPay, ETG, Tokio Marine, cash, card settlements and refunds — and creates receipts on consultants\' behalf when they were never entered.',
     goalStatement:
@@ -206,6 +171,8 @@ export const personas = [
     role: 'Travel Finance & Commercial',
     emoji: '🏦',
     accent: '#9F2241',
+    primary: true,
+    primaryReason: 'Owns the banking relationship and risk model — accountable for the cost of every front-office error.',
     context:
       'Owns the Westpac banking relationship, the virtual-card risk model and the supplier commercial agreements. Tracks the debits and write-offs that front-office keying errors create, and is accountable for finance scaling more slowly than the business.',
     goalStatement:
@@ -236,6 +203,45 @@ export const personas = [
       { stage: 'Receipting', today: 'Terminal and Tramada amounts disagree', tomorrow: 'Terminal pre-populated from Tramada', emotion: '😠', mood: 'Exposed' },
       { stage: 'Supplier Payment', today: 'Card risk, validity windows, wrong suppliers paid', tomorrow: 'API-issued cards with controls built in', emotion: '😤', mood: 'Guarded' },
       { stage: 'Reconciliation', today: 'Months behind, errors compounding', tomorrow: 'Closed within the month', emotion: '😫', mood: 'Under pressure' },
+    ],
+  },
+
+  {
+    id: 'member',
+    name: 'Grace Sullivan',
+    role: 'RAA Member / Client',
+    emoji: '🧭',
+    accent: '#00349F',
+    context:
+      'Long-standing RAA member booking a multi-segment overseas trip. Reviews the quote over a week, then pays by BPay — sometimes a deposit first, then the balance.',
+    goalStatement:
+      'Book with confidence and know my money has landed and my trip is actually secured.',
+    today: [
+      'Waits 3–7 working days for payment to be recognised before her booking is confirmed',
+      'Reads card digits into a phone keypad, or pays via BPay with no confirmation the funds have landed',
+      'No way to check booking or payment status without ringing the consultant',
+      'Everything arrives as an email attachment — quote, itinerary, acceptance form',
+      'No formal instalment option, only ad-hoc separate payments tracked manually',
+    ],
+    tomorrow: [
+      'Settlement recognised same day, booking confirmed without the wait',
+      'Secure self-service payment on her own device, with instant confirmation',
+      'Live booking and payment status she can check herself, any time',
+      'Documents and acceptance available in one place, no email attachments to manage',
+      'A clear, scheduled instalment option if she wants to split the cost',
+    ],
+    keyBenefit: 'Certainty her trip is confirmed, without doing RAA\'s paperwork',
+    challengeIds: ['C14', 'C16', 'C17', 'C18', 'C19'],
+    journey: [
+      { stage: 'Enquiry', today: 'Calls or visits a branch', tomorrow: 'Same warm consult, better prepared', emotion: '😊', mood: 'Hopeful' },
+      { stage: 'Client Setup', today: 'Repeats details already held by RAA', tomorrow: 'Recognised as a member instantly', emotion: '😐', mood: 'Resigned' },
+      { stage: 'Sourcing', today: 'Waits while options are assembled', tomorrow: 'Options presented in one view', emotion: '🙂', mood: 'Interested' },
+      { stage: 'Segments & Costing', today: 'Invisible to her', tomorrow: 'Transparent, itemised costing', emotion: '😐', mood: 'Neutral' },
+      { stage: 'Quote & Acceptance', today: 'PDF attachment, print, sign, scan', tomorrow: 'Digital acceptance in two taps', emotion: '😕', mood: 'Inconvenienced' },
+      { stage: 'Client Payment', today: 'Keys card over the phone, or BPays blind', tomorrow: 'Secure link, method of her choosing', emotion: '😰', mood: 'Uneasy' },
+      { stage: 'Receipting', today: 'Emails a screenshot and waits', tomorrow: 'Instant receipt to her inbox', emotion: '😟', mood: 'Uncertain' },
+      { stage: 'Supplier Payment', today: 'Invisible — but it gates her booking', tomorrow: 'Booking confirmed as soon as funds clear', emotion: '😶', mood: 'In the dark' },
+      { stage: 'Invoice & Close', today: 'Multiple invoices, unclear totals', tomorrow: 'One clear statement of her trip', emotion: '🙂', mood: 'Satisfied' },
     ],
   },
 
