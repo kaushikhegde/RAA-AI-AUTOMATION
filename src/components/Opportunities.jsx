@@ -1,38 +1,25 @@
 import React, { useMemo, useState } from 'react'
-import { opportunities, opportunityPhases, PRIORITY } from '../data/opportunities.js'
+import { opportunities, PRIORITY } from '../data/opportunities.js'
 import { personas } from '../data/personas.js'
-import { challenges } from '../data/challenges.js'
 import { allCaps } from '../data/capabilities.js'
 import CapabilityDrawer from './CapabilityDrawer.jsx'
+import OpportunityDrawer from './OpportunityDrawer.jsx'
 
 export default function Opportunities() {
-  const [query, setQuery] = useState('')
-  const [phaseFilter, setPhaseFilter] = useState(null)
   const [priorityFilter, setPriorityFilter] = useState(null)
   const [selectedCap, setSelectedCap] = useState(null)
-
-  const q = query.trim().toLowerCase()
+  const [selectedOpp, setSelectedOpp] = useState(null)
 
   const visible = useMemo(
-    () =>
-      opportunities
-        .filter((o) => !phaseFilter || o.phase === phaseFilter)
-        .filter((o) => !priorityFilter || o.priority === priorityFilter)
-        .filter(
-          (o) =>
-            !q ||
-            o.title.toLowerCase().includes(q) ||
-            o.description.toLowerCase().includes(q) ||
-            o.id.toLowerCase() === q
-        ),
-    [phaseFilter, priorityFilter, q]
+    () => opportunities.filter((o) => !priorityFilter || o.priority === priorityFilter),
+    [priorityFilter]
   )
 
   return (
     <div className="page">
       <div className="section-head">
         <div className="eyebrow">AI opportunities</div>
-        <h2>{opportunities.length} proposed opportunities, mapped to capabilities and challenges.</h2>
+        <h2>{opportunities.length} proposed opportunities, mapped to their specific capabilities.</h2>
         <p>
           From the Payments &amp; Reconciliation workshop, prioritised at the RAA prioritisation session
           — the reconciliation and supplier-payment opportunities go first, missing-information alerting
@@ -41,36 +28,9 @@ export default function Opportunities() {
       </div>
 
       <div className="opp-toolbar">
-        <input
-          className="search-input"
-          type="search"
-          placeholder="Search opportunities…"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search opportunities"
-        />
         <span className="opp-count">
           {visible.length} of {opportunities.length} shown
         </span>
-      </div>
-
-      <div className="pillrow" role="group" aria-label="Filter by area">
-        <button
-          className={`pill pill-all${!phaseFilter ? ' is-active' : ''}`}
-          onClick={() => setPhaseFilter(null)}
-        >
-          All areas
-        </button>
-        {opportunityPhases.map((p) => (
-          <button
-            key={p.id}
-            className={`pill${phaseFilter === p.id ? ' is-active' : ''}`}
-            onClick={() => setPhaseFilter(p.id)}
-            title={p.desc}
-          >
-            {p.name}
-          </button>
-        ))}
       </div>
 
       <div className="pillrow" role="group" aria-label="Filter by priority">
@@ -98,14 +58,12 @@ export default function Opportunities() {
               <th>ID</th>
               <th>Opportunity</th>
               <th>Capabilities</th>
-              <th>Challenges</th>
-              <th>Dependencies</th>
             </tr>
           </thead>
           <tbody>
             {visible.length === 0 ? (
               <tr>
-                <td colSpan={5} style={{ textAlign: 'center', color: 'var(--grey-500)', padding: 30 }}>
+                <td colSpan={3} style={{ textAlign: 'center', color: 'var(--grey-500)', padding: 30 }}>
                   No opportunities match those filters.
                 </td>
               </tr>
@@ -116,15 +74,32 @@ export default function Opportunities() {
                   <tr key={o.id}>
                     <td className="opp-id">{o.id}</td>
                     <td className="opp-req">
-                      <div className="opp-req-title">{o.title}</div>
+                      <button
+                        type="button"
+                        className="opp-req-title opp-req-title-link"
+                        onClick={() => setSelectedOpp(o)}
+                      >
+                        {o.title}
+                      </button>
                       <div className="opp-req-persona">
                         {p && `${p.emoji} ${p.name.split(' ')[0]} · ${p.role} — `}
                         {o.processStep}
                       </div>
                       <p className="opp-req-desc">{o.description}</p>
-                      <span className={`badge-outline opp-req-priority priority-${o.priority}`}>
-                        {PRIORITY[o.priority].label}
-                      </span>
+                      <div className="opp-req-meta">
+                        <span className={`badge-outline opp-req-priority priority-${o.priority}`}>
+                          {PRIORITY[o.priority].label}
+                        </span>
+                        <span className="opp-count-pill opp-count-pill-benefits" title="Benefits">
+                          {o.benefits.length} Benefits
+                        </span>
+                        <span
+                          className="opp-count-pill opp-count-pill-risks"
+                          title="Dependencies, risks & tech limitations"
+                        >
+                          {o.risks.length} Dependencies, risks & tech limitations
+                        </span>
+                      </div>
                     </td>
                     <td>
                       {o.caps.map((id) => (
@@ -138,30 +113,6 @@ export default function Opportunities() {
                         </button>
                       ))}
                     </td>
-                    <td>
-                      {o.challenges.map((id) => {
-                        const c = challenges.find((x) => x.id === id)
-                        return (
-                          <span className="tag" key={id} title={c?.title}>
-                            {id}
-                          </span>
-                        )
-                      })}
-                    </td>
-                    <td>
-                      {o.dependencies.length === 0 ? (
-                        <span className="opp-dep-none">—</span>
-                      ) : (
-                        o.dependencies.map((id) => {
-                          const dep = opportunities.find((x) => x.id === id)
-                          return (
-                            <span className="tag" key={id} title={dep?.title}>
-                              {id}
-                            </span>
-                          )
-                        })
-                      )}
-                    </td>
                   </tr>
                 )
               })
@@ -171,6 +122,7 @@ export default function Opportunities() {
       </div>
 
       {selectedCap && <CapabilityDrawer cap={selectedCap} onClose={() => setSelectedCap(null)} />}
+      {selectedOpp && <OpportunityDrawer opp={selectedOpp} onClose={() => setSelectedOpp(null)} />}
     </div>
   )
 }

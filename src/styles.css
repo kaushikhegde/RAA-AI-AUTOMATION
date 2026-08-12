@@ -532,86 +532,6 @@ a { color: var(--raa-blue); }
 }
 .journey-lightbox-close:hover { opacity: 1; }
 
-/* ── Scenario journey (overview / today / tomorrow placeholder) ─────────── */
-
-.scenario-subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 22px; }
-.scenario-subtab {
-  background: var(--paper); border: 1px solid var(--grey-300); border-radius: var(--radius);
-  padding: 9px 16px; font-size: 13px; font-weight: 700; color: var(--grey-700); transition: .14s;
-}
-.scenario-subtab:hover { border-color: var(--raa-ink); }
-.scenario-subtab[aria-selected='true'] {
-  border-color: var(--raa-ink); background: var(--raa-ink); color: #fff;
-}
-
-.overview-flow-intro { font-size: 13.5px; color: var(--grey-500); margin-bottom: 18px; max-width: 760px; }
-
-.overview-flow {
-  display: flex; align-items: stretch; gap: 4px; overflow-x: auto; padding-bottom: 10px;
-}
-.overview-step {
-  flex: none; width: 168px; background: var(--paper); border: 1px solid var(--grey-200);
-  border-radius: var(--radius); padding: 14px 15px; box-shadow: var(--shadow-sm);
-}
-.overview-step-emotion { font-size: 20px; margin-bottom: 6px; }
-.overview-step h4 { font-size: 12.5px; margin-bottom: 6px; }
-.overview-step p { font-size: 12px; color: var(--grey-700); line-height: 1.4; margin: 0; }
-.overview-arrow {
-  flex: none; display: flex; align-items: center; justify-content: center;
-  width: 22px; color: var(--grey-300); font-size: 16px;
-}
-
-.scenario-head { margin-bottom: 20px; }
-.scenario-head h3 { font-size: 19px; margin-bottom: 8px; }
-.scenario-summary { font-size: 14px; color: var(--grey-700); line-height: 1.55; max-width: 780px; margin-bottom: 10px; }
-.scenario-headline {
-  display: inline-block; font-size: 13px; font-weight: 700; color: var(--raa-ink);
-  background: var(--sand-50); border: 1px solid var(--sand); border-radius: var(--radius);
-  padding: 6px 13px; margin-bottom: 8px;
-}
-.scenario-source { font-size: 11.5px; color: var(--grey-500); }
-
-.scenario-placeholder-banner {
-  display: inline-block; font-size: 12.5px; font-weight: 700; color: var(--grey-500);
-  background: var(--grey-50); border: 1px dashed var(--grey-300); border-radius: var(--radius);
-  padding: 8px 14px;
-}
-
-.scenario-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.scenario-phase {
-  background: var(--paper); border: 1px solid var(--grey-200); border-radius: var(--radius-lg);
-  overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;
-}
-.is-placeholder .scenario-phase { border-style: dashed; box-shadow: none; }
-
-.scenario-phase-head { padding: 15px 18px 12px; border-bottom: 1px solid var(--grey-200); }
-.scenario-phase-head h4 { font-size: 14.5px; margin-bottom: 8px; }
-.scenario-actors { display: flex; flex-wrap: wrap; gap: 6px; }
-.scenario-actor {
-  font-size: 10.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-  color: var(--raa-ink); background: var(--sand-50); border: 1px solid var(--sand);
-  border-radius: 12px; padding: 3px 10px;
-}
-
-.scenario-section { padding: 14px 18px; }
-.scenario-section-pain { border-top: 1px solid var(--grey-200); background: var(--bad-bg); }
-.scenario-section-label {
-  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 800;
-  color: var(--grey-500); margin-bottom: 9px;
-}
-.scenario-section-pain .scenario-section-label { color: var(--raa-burgundy); }
-.scenario-section ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.scenario-section li { font-size: 12.5px; line-height: 1.45; color: var(--grey-700); }
-.scenario-section li strong { color: var(--raa-ink); }
-.scenario-placeholder-text {
-  font-size: 12.5px; color: var(--grey-300); font-weight: 700; letter-spacing: 0.04em;
-  text-transform: uppercase; margin: 0;
-}
-
-@media (max-width: 980px) {
-  .scenario-board { grid-template-columns: 1fr; }
-}
-
 /* ── Challenges ──────────────────────────────────────────────────────── */
 
 .chal-list { display: flex; flex-direction: column; gap: 12px; }
@@ -883,14 +803,26 @@ a { color: var(--raa-blue); }
 }
 .opp-req { min-width: 320px; max-width: 460px; }
 .opp-req-title { font-size: 14px; font-weight: 700; color: var(--raa-ink); line-height: 1.3; }
+.opp-req-title-link {
+  display: block; background: none; border: 0; padding: 0; margin: 0; text-align: left;
+  font-family: inherit; cursor: pointer;
+}
+.opp-req-title-link:hover { color: var(--raa-blue); text-decoration: underline; }
 .opp-req-persona {
   font-size: 11px; color: var(--grey-500); font-weight: 600; margin-top: 4px;
 }
 .opp-req-desc { font-size: 12.5px; color: var(--grey-700); line-height: 1.5; margin: 7px 0 0; }
-.opp-req-priority { margin-top: 9px; display: inline-block; }
+.opp-req-priority { display: inline-block; }
 .priority-high { color: #1b6b32; }
 .priority-medium { color: #7a5600; }
 .priority-low { color: var(--grey-500); }
+.opp-req-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+.opp-count-pill {
+  font-size: 10px; font-weight: 800; letter-spacing: .02em;
+  border-radius: 999px; padding: 2px 8px; border: 1px solid;
+}
+.opp-count-pill-benefits { color: #1b6b32; background: var(--ok-bg); border-color: var(--ok-line); }
+.opp-count-pill-risks { color: var(--raa-burgundy); background: var(--bad-bg); border-color: var(--bad-line); }
 
 .opp-table td .caplink, .opp-table td .tag { margin: 0 5px 5px 0; }
 .opp-dep-none { color: var(--grey-300); font-size: 13px; }

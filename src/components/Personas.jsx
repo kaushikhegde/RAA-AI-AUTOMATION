@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import { personas } from '../data/personas.js'
 import { challenges } from '../data/challenges.js'
+import consultantJourney from '../assets/journeys/consultant-journey.png'
+import accountsJourney from '../assets/journeys/accounts-journey.png'
+import financeJourney from '../assets/journeys/finance-journey.png'
+
+const JOURNEY_IMAGES = {
+  consultant: consultantJourney,
+  accounts: accountsJourney,
+  finance: financeJourney,
+}
 
 export default function Personas({ view, onViewChange }) {
   return (
@@ -111,12 +120,13 @@ function Overview() {
 
 function Journeys() {
   const [activeId, setActiveId] = useState(personas[0].id)
-  const [view, setView] = useState('overview')
+  const [lightbox, setLightbox] = useState(false)
   const p = personas.find((x) => x.id === activeId)
+  const image = JOURNEY_IMAGES[p.id]
 
   const selectPersona = (id) => {
     setActiveId(id)
-    setView('overview')
+    setLightbox(false)
   }
 
   return (
@@ -144,39 +154,21 @@ function Journeys() {
         ))}
       </div>
 
-      {p.journeyScenario ? (
-        <>
-          <div className="scenario-subtabs" role="tablist" aria-label="Journey view">
-            <button
-              className="scenario-subtab"
-              role="tab"
-              aria-selected={view === 'overview'}
-              onClick={() => setView('overview')}
-            >
-              High-level overview
-            </button>
-            <button
-              className="scenario-subtab"
-              role="tab"
-              aria-selected={view === 'today'}
-              onClick={() => setView('today')}
-            >
-              Today — {p.journeyScenario.title.replace(/^Scenario \d+: /, '')}
-            </button>
-            <button
-              className="scenario-subtab"
-              role="tab"
-              aria-selected={view === 'tomorrow'}
-              onClick={() => setView('tomorrow')}
-            >
-              Tomorrow (placeholder)
-            </button>
-          </div>
-
-          {view === 'overview' && <HighLevelOverview persona={p} />}
-          {view === 'today' && <ScenarioBoard scenario={p.journeyScenario} mode="today" />}
-          {view === 'tomorrow' && <ScenarioBoard scenario={p.journeyScenario} mode="tomorrow" />}
-        </>
+      {image ? (
+        <figure className="journey-figure">
+          <button
+            type="button"
+            className="journey-figure-btn"
+            onClick={() => setLightbox(true)}
+            aria-label={`Zoom into ${p.name}'s journey diagram`}
+          >
+            <img src={image} alt={`${p.name}'s journey — ${p.role} today vs tomorrow`} />
+          </button>
+          <figcaption>
+            <span className="meta-label">Today vs tomorrow</span>
+            <span>Click the diagram to zoom in</span>
+          </figcaption>
+        </figure>
       ) : (
         <div className="journey-pending">
           <span className="journey-pending-mark">◇</span>
@@ -189,100 +181,23 @@ function Journeys() {
         </div>
       )}
 
+      {lightbox && image && (
+        <div className="journey-lightbox" onClick={() => setLightbox(false)}>
+          <button
+            type="button"
+            className="journey-lightbox-close"
+            onClick={() => setLightbox(false)}
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <img src={image} alt={`${p.name}'s journey — ${p.role} today vs tomorrow`} />
+        </div>
+      )}
+
       <div className="callout">
         <strong>{p.name}</strong> — {p.context} {p.keyBenefit}.
       </div>
     </>
-  )
-}
-
-function HighLevelOverview({ persona }) {
-  return (
-    <>
-      <p className="overview-flow-intro">
-        End-to-end current-state process for <strong>{persona.name}</strong> — high-level steps and
-        the pain point at each one. Sourced from the AS-IS process pack and the current-state
-        journeys and pain points pack.
-      </p>
-      <div className="overview-flow">
-        {persona.journey.map((s, i) => (
-          <React.Fragment key={s.stage}>
-            <div className="overview-step">
-              <div className="overview-step-emotion" aria-hidden="true">{s.emotion}</div>
-              <h4>{s.stage}</h4>
-              <p>{s.today}</p>
-            </div>
-            {i < persona.journey.length - 1 && (
-              <div className="overview-arrow" aria-hidden="true">&rarr;</div>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
-    </>
-  )
-}
-
-function ScenarioBoard({ scenario, mode }) {
-  const placeholder = mode === 'tomorrow'
-  return (
-    <div className={`scenario-board-wrap${placeholder ? ' is-placeholder' : ''}`}>
-      <div className="scenario-head">
-        <h3>{scenario.title}</h3>
-        {placeholder ? (
-          <div className="scenario-placeholder-banner">
-            Future-state layout only — content not yet designed
-          </div>
-        ) : (
-          <>
-            <p className="scenario-summary">{scenario.summary}</p>
-            <div className="scenario-headline">{scenario.headline}</div>
-            <div className="scenario-source">Source: {scenario.source}</div>
-          </>
-        )}
-      </div>
-
-      <div className="scenario-board">
-        {scenario.phases.map((phase) => (
-          <div className="scenario-phase" key={phase.name}>
-            <div className="scenario-phase-head">
-              <h4>{phase.name}</h4>
-              <div className="scenario-actors">
-                {phase.actors.map((a) => (
-                  <span className="scenario-actor" key={a}>{a}</span>
-                ))}
-              </div>
-            </div>
-
-            <div className="scenario-section">
-              <div className="scenario-section-label">Human actions</div>
-              {placeholder ? (
-                <p className="scenario-placeholder-text">Placeholder</p>
-              ) : (
-                <ul>
-                  {phase.actions.map((a) => (
-                    <li key={a.title}>
-                      <strong>{a.title}:</strong> {a.text}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <div className="scenario-section scenario-section-pain">
-              <div className="scenario-section-label">Pain points</div>
-              {placeholder ? (
-                <p className="scenario-placeholder-text">Placeholder</p>
-              ) : (
-                <ul>
-                  {phase.painPoints.map((pt) => (
-                    <li key={pt}>{pt}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }

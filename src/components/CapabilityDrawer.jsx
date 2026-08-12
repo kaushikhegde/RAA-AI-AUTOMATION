@@ -86,7 +86,7 @@ export default function CapabilityDrawer({ cap, onClose }) {
                       {o.description}
                     </p>
                     <div style={{ fontSize: 11.5, fontWeight: 700, color: '#1b6b32', marginTop: 6 }}>
-                      ✓ {o.benefit}
+                      ✓ {o.benefits[0]}
                     </div>
                   </div>
                 ))}
