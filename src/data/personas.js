@@ -17,11 +17,11 @@ export const personas = [
     goalStatement:
       'Spend the day advising members on travel, not re-keying the same booking into multiple systems.',
     today: [
-      'Every non-Amadeus segment keyed by hand, hopping Tramada, Amadeus, MINT, IPSI, LastPass and supplier portals per booking',
+      'Every segment is keyed by hand, hopping Tramada, MINT, IPSI and supplier portals per booking',
       'Easy to make financial errors and miss keying in critical details under time pressure — a reference number, a policy number, a decimal point',
       'No system-enforced upper limit on how much a single supplier payment can be generated for',
       'Long time to competency for new starters, learning a large system estate before they can work independently',
-      'Documents scattered across Y: drive and a personal mailbox',
+      'Documents scattered across personal file system and mailbox',
     ],
     tomorrow: [
       'Supplier content flows into segments automatically, with no re-keying across systems',
@@ -178,14 +178,12 @@ export const personas = [
     goalStatement:
       'Grow the business 30–40% while growing finance effort 5–10% — and stop paying for avoidable errors.',
     today: [
-      'In-store EFTPOS terminals aren\'t connected to Tramada, so the receipt and the terminal amount can disagree — or the transaction never reaches Tramada at all',
       'A single mis-typed digit becomes a large financial loss — a $7,000 payment has become a $700,000 payment',
       'Shortcuts that save an agent seconds cost the finance team hours to trace and unwind, on top of inconsistent manual data entry',
       'Virtual card validity windows and unused credit carry live fraud and risk exposure',
       'No confirmation an international EFT supplier payment actually landed at the other end',
     ],
     tomorrow: [
-      'Terminal and Tramada amounts reconciled automatically, so a broken link is caught immediately',
       'Mandatory references and validated entry make the common keying errors impossible',
       'Consistent, validated data at entry means less time spent tracing and unwinding mistakes downstream',
       'Card issuance and risk controls built into the platform, not tracked manually',
@@ -256,14 +254,12 @@ export const personas = [
     goalStatement:
       'Shorten time-to-competence and stop being the human integration layer between systems.',
     today: [
-      'Extensive time to competence across a very large system estate before a new starter can operate independently',
-      'Amadeus is a powerful reservations system with a steep, DOS-era learning curve even with point-and-click added',
+      'Extensive time to competence across a very large system before a new starter can operate independently',
       'Trainees lose the most time in segments and costing — the most manual, most error-prone part of a booking',
-      'Promised Tramada supplier integration was never delivered, so the workaround is taught as if it were permanent',
+      'Lack of proper Tramada supplier integration, workaround solution is taught as if it were permanent',
     ],
     tomorrow: [
       'Faster, more predictable time to competence as fewer systems and manual steps need to be taught',
-      'A guided, point-and-click experience across the estate, without the steep legacy learning curve',
       'Auto-created segments and rules-based costing for trainees to review, not build from scratch',
       'Integration delivered where the vendor did not, so the workaround is retired from training entirely',
     ],

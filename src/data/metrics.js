@@ -68,7 +68,7 @@ export const metricThemes = [
         status: '1st survey not yet run',
       },
       {
-        title: 'Avg time to competency for new travel consultants',
+        title: 'Average time to competency for new travel consultants',
         direction: 'down',
         cadence: 'Measured over longer period',
         value: '9.5 wks',
@@ -82,7 +82,7 @@ export const metricThemes = [
     name: 'Growth & Revenue',
     metrics: [
       {
-        title: 'Avg value of bookings, quotes & conversion rate (quote to sale)',
+        title: 'Average value of bookings, quotes & conversion rate (quote to sale)',
         direction: 'up',
         cadence: 'Tracked monthly',
         value: '$1,240 · 22%',
@@ -90,7 +90,7 @@ export const metricThemes = [
         status: 'Awaiting baseline',
       },
       {
-        title: 'Avg sales per month per consultant (0–6 & 7–12 month tenure)',
+        title: 'Average sales per month per consultant (0–6 & 7–12 month tenure)',
         direction: 'up',
         cadence: 'Tracked over early tenure',
         value: '$14,200',
