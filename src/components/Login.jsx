@@ -123,11 +123,6 @@ export default function Login({ onSignIn }) {
           <button type="submit" className="login-submit">
             Sign in <span aria-hidden="true">→</span>
           </button>
-
-          <p className="login-hint">
-            <strong>Demo access</strong>
-            {DEMO_EMAIL} · {DEMO_PASSWORD}
-          </p>
         </form>
       </main>
     </div>
