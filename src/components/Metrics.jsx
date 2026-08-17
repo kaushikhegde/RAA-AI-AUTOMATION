@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import { metricThemes } from '../data/metrics.js'
 
+const ALL_ID = 'all'
+
 export default function Metrics() {
-  const [themeId, setThemeId] = useState(metricThemes[0].id)
+  const [themeId, setThemeId] = useState(ALL_ID)
+  const isAll = themeId === ALL_ID
   const theme = metricThemes.find((t) => t.id === themeId)
+  const allMetrics = metricThemes.flatMap((t) =>
+    t.metrics.map((m) => ({ ...m, themeName: t.name }))
+  )
+  const visibleMetrics = isAll ? allMetrics : theme.metrics
 
   return (
     <div className="page">
@@ -23,6 +30,12 @@ export default function Metrics() {
       </div>
 
       <div className="pillrow" role="group" aria-label="Choose a metric theme">
+        <button
+          className={`pill${isAll ? ' is-active' : ''}`}
+          onClick={() => setThemeId(ALL_ID)}
+        >
+          All ({allMetrics.length})
+        </button>
         {metricThemes.map((t) => (
           <button
             key={t.id}
@@ -35,8 +48,8 @@ export default function Metrics() {
       </div>
 
       <div className="metrics-grid">
-        {theme.metrics.map((m) => (
-          <MetricCard metric={m} key={m.title} />
+        {visibleMetrics.map((m) => (
+          <MetricCard metric={m} key={m.title} showTheme={isAll} />
         ))}
       </div>
 
@@ -48,9 +61,10 @@ export default function Metrics() {
   )
 }
 
-function MetricCard({ metric: m }) {
+function MetricCard({ metric: m, showTheme }) {
   return (
     <article className="metric-card">
+      {showTheme && <div className="metric-card-theme">{m.themeName}</div>}
       <div className="metric-card-title">{m.title}</div>
       <div className="metric-row">
         <span className={`chip chip-${m.direction}`}>

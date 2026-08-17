@@ -87,7 +87,7 @@ export default function App() {
           </span>
           <span className="header-divider" aria-hidden="true" />
           <div className="header-titles">
-            <h1>Travel Booking &amp; Payments — Solution Guide</h1>
+            <h1>Travel Payments, Receipts &amp; Reconciliation Solution Guide</h1>
             <div className="kicker">Personas · Process · Capabilities · Challenges · Opportunities · Metrics</div>
           </div>
 

@@ -875,6 +875,10 @@ a { color: var(--raa-blue); }
   background: var(--paper); border: 1px solid var(--grey-200); border-radius: var(--radius-lg);
   padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);
 }
+.metric-card-theme {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--raa-primary, var(--grey-500)); order: -1;
+}
 .metric-card-title { font-size: 13.5px; font-weight: 700; color: var(--raa-ink); line-height: 1.35; }
 .metric-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .chip {

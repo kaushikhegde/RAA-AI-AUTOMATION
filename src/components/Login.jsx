@@ -53,10 +53,10 @@ export default function Login({ onSignIn }) {
             RAA
           </span>
 
-          <div className="login-eyebrow">RAA Travel · Digital Transformation</div>
-          <h1>Booking &amp; Payments Solution Guide</h1>
+          <div className="login-eyebrow">RAA Travel · AI Proof of Concepts</div>
+          <h1>Travel Payments, Receipts &amp; Reconciliation Solution Guide</h1>
           <p className="login-blurb">
-            Personas, processes, capabilities and challenges for the RAA Travel booking and payments
+            Personas, processes, capabilities, challenges and opportunities for Travel payments, receipts and reconciliation
             current-state analysis.
           </p>
 
